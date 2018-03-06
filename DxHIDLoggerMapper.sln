@@ -1,0 +1,61 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HIDLoggerDLL", "HIDLogger\HIDLoggerDLL.vcxproj", "{12ADFAFF-5487-4286-AB9F-657B4086B14D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HIDLoggerCmd", "HIDLoggerCmd\HIDLoggerCmd.csproj", "{42577DBD-724C-47A8-8134-6CE51FF0C367}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HIDLoggerGui", "HIDLoggerGui\HIDLoggerGui.csproj", "{CFCBF058-1B41-4A43-8E8B-C5441E77CFC5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release x64|x64 = Release x64|x64
+		Release x64|x86 = Release x64|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12ADFAFF-5487-4286-AB9F-657B4086B14D}.Debug|x64.ActiveCfg = Debug|x64
+		{12ADFAFF-5487-4286-AB9F-657B4086B14D}.Debug|x64.Build.0 = Debug|x64
+		{12ADFAFF-5487-4286-AB9F-657B4086B14D}.Debug|x86.ActiveCfg = Debug|Win32
+		{12ADFAFF-5487-4286-AB9F-657B4086B14D}.Debug|x86.Build.0 = Debug|Win32
+		{12ADFAFF-5487-4286-AB9F-657B4086B14D}.Release x64|x64.ActiveCfg = Release|x64
+		{12ADFAFF-5487-4286-AB9F-657B4086B14D}.Release x64|x64.Build.0 = Release|x64
+		{12ADFAFF-5487-4286-AB9F-657B4086B14D}.Release x64|x86.ActiveCfg = Release|Win32
+		{12ADFAFF-5487-4286-AB9F-657B4086B14D}.Release x64|x86.Build.0 = Release|Win32
+		{12ADFAFF-5487-4286-AB9F-657B4086B14D}.Release|x64.ActiveCfg = Release|x64
+		{12ADFAFF-5487-4286-AB9F-657B4086B14D}.Release|x64.Build.0 = Release|x64
+		{12ADFAFF-5487-4286-AB9F-657B4086B14D}.Release|x86.ActiveCfg = Release|Win32
+		{12ADFAFF-5487-4286-AB9F-657B4086B14D}.Release|x86.Build.0 = Release|Win32
+		{42577DBD-724C-47A8-8134-6CE51FF0C367}.Debug|x64.ActiveCfg = Debug|x64
+		{42577DBD-724C-47A8-8134-6CE51FF0C367}.Debug|x64.Build.0 = Debug|x64
+		{42577DBD-724C-47A8-8134-6CE51FF0C367}.Debug|x86.ActiveCfg = Debug|x86
+		{42577DBD-724C-47A8-8134-6CE51FF0C367}.Debug|x86.Build.0 = Debug|x86
+		{42577DBD-724C-47A8-8134-6CE51FF0C367}.Release x64|x64.ActiveCfg = Release|x64
+		{42577DBD-724C-47A8-8134-6CE51FF0C367}.Release x64|x64.Build.0 = Release|x64
+		{42577DBD-724C-47A8-8134-6CE51FF0C367}.Release x64|x86.ActiveCfg = Release|x86
+		{42577DBD-724C-47A8-8134-6CE51FF0C367}.Release x64|x86.Build.0 = Release|x86
+		{42577DBD-724C-47A8-8134-6CE51FF0C367}.Release|x64.ActiveCfg = Release|x64
+		{42577DBD-724C-47A8-8134-6CE51FF0C367}.Release|x64.Build.0 = Release|x64
+		{42577DBD-724C-47A8-8134-6CE51FF0C367}.Release|x86.ActiveCfg = Release|x86
+		{42577DBD-724C-47A8-8134-6CE51FF0C367}.Release|x86.Build.0 = Release|x86
+		{CFCBF058-1B41-4A43-8E8B-C5441E77CFC5}.Debug|x64.ActiveCfg = Debug|x64
+		{CFCBF058-1B41-4A43-8E8B-C5441E77CFC5}.Debug|x64.Build.0 = Debug|x64
+		{CFCBF058-1B41-4A43-8E8B-C5441E77CFC5}.Debug|x86.ActiveCfg = Debug|x86
+		{CFCBF058-1B41-4A43-8E8B-C5441E77CFC5}.Debug|x86.Build.0 = Debug|x86
+		{CFCBF058-1B41-4A43-8E8B-C5441E77CFC5}.Release x64|x64.ActiveCfg = Release|x64
+		{CFCBF058-1B41-4A43-8E8B-C5441E77CFC5}.Release x64|x64.Build.0 = Release|x64
+		{CFCBF058-1B41-4A43-8E8B-C5441E77CFC5}.Release x64|x86.ActiveCfg = Release|x86
+		{CFCBF058-1B41-4A43-8E8B-C5441E77CFC5}.Release x64|x86.Build.0 = Release|x86
+		{CFCBF058-1B41-4A43-8E8B-C5441E77CFC5}.Release|x64.ActiveCfg = Release|x64
+		{CFCBF058-1B41-4A43-8E8B-C5441E77CFC5}.Release|x64.Build.0 = Release|x64
+		{CFCBF058-1B41-4A43-8E8B-C5441E77CFC5}.Release|x86.ActiveCfg = Release|x86
+		{CFCBF058-1B41-4A43-8E8B-C5441E77CFC5}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
