@@ -19,7 +19,7 @@ namespace HIDLoggerGui
       DeviceName = deviceName;
     }
 
-    public void UpdateControl(string controlName, int state)
+    public void UpdateControl(string controlName, int state, int previousState)
     {
       if (controlName.IndexOf("Button") == 0)
       {
@@ -34,12 +34,12 @@ namespace HIDLoggerGui
       ControlMonitor controlMonitor = null;
       if (_nameToControlMonitor.TryGetValue(controlName, out controlMonitor))
       {
-        controlMonitor.State = state;
+        controlMonitor.Update(state, previousState);
       }
       else
       {
         controlMonitor = new ControlMonitor(controlName);
-        controlMonitor.State = state;
+        controlMonitor.Update(state, previousState);
         _nameToControlMonitor.Add(controlName, controlMonitor);
         _controls.Add(controlMonitor);
       }

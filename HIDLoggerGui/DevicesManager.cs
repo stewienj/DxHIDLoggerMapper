@@ -101,7 +101,7 @@ namespace HIDLoggerGui
       _actionQueue.Add(new Action(() =>
       {
         DeviceMonitor deviceMonitor = AddOrGetDevice(e.Device);
-        deviceMonitor.UpdateControl(e.Control, e.State);
+        deviceMonitor.UpdateControl(e.Control, e.State, e.PreviousState);
         OnDataLoggedToFile(e);
       }));
     }

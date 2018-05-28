@@ -1,3 +1,4 @@
+#include "MapperJoystickToKeyboard.h"
 #include "FileLoggerJoystick.h"
 #include "FileLoggerMouse.h"
 #include "FileLoggerKeyboard.h"
@@ -250,13 +251,15 @@ namespace HIDLogger {
       _stopMonitoring = false;
       while (!_stopMonitoring) {
         Sleep(200);
-        std::vector<std::pair<const GUID, FileLoggerBase*>> toRemove;
+
+        // Remove logger for any removed devices
+        std::vector<std::pair<const GUID, FileLoggerBase*>> loggerToRemove;
         for (std::pair<const GUID, FileLoggerBase*> logger : *_guidToLogger) {
           if (logger.second->UIThreadCheckIsValid() != S_OK) {
-            toRemove.push_back(logger);
+            loggerToRemove.push_back(logger);
           }
         }
-        for (std::pair<const GUID, FileLoggerBase*> logger : toRemove) {
+        for (std::pair<const GUID, FileLoggerBase*> logger : loggerToRemove) {
           _guidToLogger->erase(logger.first);
           logger.second->Stop();
           FireDeviceChanged(logger.second->GetDeviceName(), DeviceInfo::InfoType::Removed);
@@ -332,9 +335,9 @@ namespace HIDLogger {
     }
   }
 
-  void HIDLoggerInterface::LoggedInfo(TCHAR* machine, TCHAR* device, TCHAR* control, long state) {
+  void HIDLoggerInterface::LoggedInfo(TCHAR* machine, TCHAR* device, TCHAR* control, long state, long previousState) {
     try {
-      InfoLogged(this, gcnew LoggedDataArgs(machine, device, control, state));
+      InfoLogged(this, gcnew LoggedDataArgs(machine, device, control, state, previousState));
     } catch (...) {
 
     }

@@ -15,6 +15,7 @@ namespace HIDLogger {
 class FileLoggerBase
 {
 private:
+  bool _writeToFile;
   bool _canExit;
   bool _keepRunning;
   TextFile* _outputMovement;

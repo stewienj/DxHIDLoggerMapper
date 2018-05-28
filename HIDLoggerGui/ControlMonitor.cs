@@ -18,6 +18,14 @@ namespace HIDLoggerGui
       ControlName = controlName;
     }
 
+    public void Update(int state, int previousState)
+    {
+      State = state;
+      PreviousState = previousState;
+      UpdateCount += 1;
+      LastUpdate = DateTime.Now;
+    }
+
     public string ControlName
     {
       get;
@@ -31,14 +39,29 @@ namespace HIDLoggerGui
       {
         return _state;
       }
-      set
+      private set
       {
         if (value != _state)
         {
           _state = value;
           OnPropertyChanged("State");
-          UpdateCount += 1;
-          LastUpdate = DateTime.Now;
+        }
+      }
+    }
+
+    private int _previousState = -1;
+    public int PreviousState
+    {
+      get
+      {
+        return _previousState;
+      }
+      private set
+      {
+        if (value != _previousState)
+        {
+          _previousState = value;
+          OnPropertyChanged("PreviousState");
         }
       }
     }

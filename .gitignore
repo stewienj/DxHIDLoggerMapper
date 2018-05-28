@@ -2,3 +2,5 @@
 Bin/
 Intermediate/
 packages/
+HIDLogger/HIDLoggerDLL.vcxproj.user
+HIDLoggerGui/HIDLoggerGui.csproj.user

@@ -7,11 +7,12 @@ namespace HIDLogger {
 
   public ref class LoggedDataArgs : public EventArgs {
   public:
-    LoggedDataArgs(TCHAR* machine, TCHAR* device, TCHAR* control, int state);
+    LoggedDataArgs(TCHAR* machine, TCHAR* device, TCHAR* control, int state, int previousState);
     String^ Machine;
     String^ Device;
     String^ Control;
     int State;
+    int PreviousState;
   };
 
   public ref class DeviceInfo : public EventArgs {

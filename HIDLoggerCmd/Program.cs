@@ -29,7 +29,7 @@ namespace HIDLoggerCmd
 
     static void logger_InfoLogged(object sender, LoggedDataArgs e)
     {
-      Console.WriteLine("{0} {1} {2}", e.Device, e.Control, e.State);
+      Console.WriteLine($"{e.Device} {e.Control} {e.State} {e.PreviousState}");
     }
   }
 }

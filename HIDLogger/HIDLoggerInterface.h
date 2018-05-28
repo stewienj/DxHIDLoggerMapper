@@ -49,7 +49,7 @@ namespace HIDLogger {
       }
     }
 
-    void LoggedInfo(TCHAR* machine, TCHAR* device, TCHAR* control, long state);
+    void LoggedInfo(TCHAR* machine, TCHAR* device, TCHAR* control, long state, long previousState);
     const DIJOYSTATE2& GetJoystickState();
     static bool OtherInstanceRunning();
     void Error(TCHAR* deviceName, String^ message);

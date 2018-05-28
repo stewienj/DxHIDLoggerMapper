@@ -15,17 +15,21 @@ FileLoggerBase::FileLoggerBase(const TCHAR* directory, const TCHAR* suffix, int 
   _outputButton = NULL;
   _pDevice = NULL;
   _deviceLost = false;
+  _writeToFile = directory != NULL;
   StringCchPrintf(_deviceType, 128, TEXT("%s%d"), suffix, deviceNo);
-  StringCchPrintf(_directory, 1024, directory);
+  StringCchPrintf(_directory, 1024, _writeToFile ? directory : TEXT(""));
   DWORD size = sizeof(_machineName);
   GetComputerName(_machineName, &size);
 
   try {
-    CreateDirectory(directory, NULL);
-  } catch (...) {
+    if (_writeToFile)
+    {
+      CreateDirectory(directory, NULL);
+    }
+  }
+  catch (...) {
     _loggerInterface->Error(_deviceName, "Error Creating Log Directory");
   }
-
 }
 
 FileLoggerBase::~FileLoggerBase(void) {
@@ -75,40 +79,42 @@ TextFile* FileLoggerBase::CreateFileWithHeader(TCHAR* prefix)
 {
   TCHAR tempFilename[4096] = { 0 };
   TextFile* textFile = NULL;
+  if (_writeToFile)
+  {
+    try {
 
-  try {
+      TCHAR timeString[128];
+      SYSTEMTIME time;
+      GetLocalTime(&time);
+      StringCchPrintf(timeString, 128, TEXT("%04d%02d%02d %02d%02d%02d"), time.wYear, time.wMonth, time.wDay, time.wHour, time.wMinute, time.wSecond);
+      StringCchPrintf(tempFilename, 4096, TEXT("%s\\%s %s %s %s %s.tsv"), _directory, prefix, timeString, _deviceType, _deviceName, _machineName);
+      textFile = new TextFile();
+      textFile->Open(tempFilename, TF_WRITE, TF_UTF8, 4096);
+    }
+    catch (...) {
+      _loggerInterface->Error(_deviceName, "Error Creating Log File");
+      return NULL;
+    }
 
-    TCHAR timeString[128];
-    SYSTEMTIME time;
-    GetLocalTime(&time);
-    StringCchPrintf(timeString, 128, TEXT("%04d%02d%02d %02d%02d%02d"), time.wYear, time.wMonth, time.wDay, time.wHour, time.wMinute, time.wSecond);
-    StringCchPrintf(tempFilename, 4096, TEXT("%s\\%s %s %s %s %s.tsv"), _directory, prefix, timeString, _deviceType, _deviceName, _machineName);
-    textFile = new TextFile();
-    textFile->Open(tempFilename, TF_WRITE, TF_UTF8, 4096);
-  } catch (...) {
-    _loggerInterface->Error(_deviceName, "Error Creating Log File");
-    return NULL;
+    TCHAR buffer[4096] = { 0 };
+    BOOL test;
+
+    try {
+      StringCchCat(buffer, 4096, _TEXT("Time\t"));
+      StringCchCat(buffer, 4096, _TEXT("Machine Name\t"));
+      StringCchCat(buffer, 4096, _TEXT("Device ID\t"));
+      StringCchCat(buffer, 4096, _TEXT("Control ID\t"));
+      StringCchCat(buffer, 4096, _TEXT("Control Value\t"));
+
+      textFile->WriteString(&test, buffer);
+      textFile->WriteChar(&test, '\n');
+    }
+    catch (...) {
+      _loggerInterface->Error(_deviceName, "Error Writing to Log File");
+    }
   }
-
-  TCHAR buffer[4096] = { 0 };
-  BOOL test;
-
-  try {
-    StringCchCat(buffer, 4096, _TEXT("Time\t"));
-    StringCchCat(buffer, 4096, _TEXT("Machine Name\t"));
-    StringCchCat(buffer, 4096, _TEXT("Device ID\t"));
-    StringCchCat(buffer, 4096, _TEXT("Control ID\t"));
-    StringCchCat(buffer, 4096, _TEXT("Control Value\t"));
-
-    textFile->WriteString(&test, buffer);
-    textFile->WriteChar(&test, '\n');
-  } catch (...) {
-    _loggerInterface->Error(_deviceName, "Error Writing to Log File");
-  }
-
   return textFile;
 }
-
 void FileLoggerBase::Start() {
   if (_pDevice != NULL) {
     _canExit = false;
@@ -152,25 +158,28 @@ void FileLoggerBase::LogBase(TCHAR* controlID, LONG state, LONG previousState, T
   TCHAR buffer[4096] = { 0 };
   BOOL test;
 
-  try {
-    StringCchPrintf(sz, 128, TEXT("%04d-%02d-%02d %02d:%02d:%02d.%03d\t"), time.wYear, time.wMonth, time.wDay, time.wHour, time.wMinute, time.wSecond, time.wMilliseconds);
-    StringCchCat(buffer, 4096, sz);
-    StringCchPrintf(sz, 128, TEXT("%s\t"), _machineName);
-    StringCchCat(buffer, 4096, sz);
-    StringCchPrintf(sz, 128, TEXT("%s\t"), _deviceName);
-    StringCchCat(buffer, 4096, sz);
-    StringCchPrintf(sz, 128, TEXT("%s\t"), controlID);
-    StringCchCat(buffer, 4096, sz);
-    StringCchPrintf(sz, 128, TEXT("%ld\t"), state);
-    StringCchCat(buffer, 4096, sz);
-    output->WriteString(&test, buffer);
-    output->WriteChar(&test, '\n');
-    output->Flush();
-
-    _loggerInterface->LoggedInfo(_machineName, _deviceName, controlID, state);
-  } catch (...) {
-    _loggerInterface->Error(_deviceName, "Error Writing to Log File");
+  if (_writeToFile)
+  {
+    try {
+      StringCchPrintf(sz, 128, TEXT("%04d-%02d-%02d %02d:%02d:%02d.%03d\t"), time.wYear, time.wMonth, time.wDay, time.wHour, time.wMinute, time.wSecond, time.wMilliseconds);
+      StringCchCat(buffer, 4096, sz);
+      StringCchPrintf(sz, 128, TEXT("%s\t"), _machineName);
+      StringCchCat(buffer, 4096, sz);
+      StringCchPrintf(sz, 128, TEXT("%s\t"), _deviceName);
+      StringCchCat(buffer, 4096, sz);
+      StringCchPrintf(sz, 128, TEXT("%s\t"), controlID);
+      StringCchCat(buffer, 4096, sz);
+      StringCchPrintf(sz, 128, TEXT("%ld\t"), state);
+      StringCchCat(buffer, 4096, sz);
+      output->WriteString(&test, buffer);
+      output->WriteChar(&test, '\n');
+      output->Flush();
+    }
+    catch (...) {
+      _loggerInterface->Error(_deviceName, "Error Writing to Log File");
+    }
   }
+  _loggerInterface->LoggedInfo(_machineName, _deviceName, controlID, state, previousState);
 }
 
 

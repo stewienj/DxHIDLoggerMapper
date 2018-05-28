@@ -365,6 +365,7 @@
     <ClCompile Include="hpslib.cpp" />
     <ClCompile Include="HIDLoggerInterface.cpp" />
     <ClCompile Include="LoggedDataArgs.cpp" />
+    <ClCompile Include="MapperJoystickToKeyboard.cpp" />
     <ClCompile Include="winmain.cpp" />
     <ClCompile Include="textfile.cpp" />
   </ItemGroup>
@@ -376,6 +377,7 @@
     <ClInclude Include="hpsutils.h" />
     <ClInclude Include="LimitSingleInstance.h" />
     <ClInclude Include="LoggedDataArgs.h" />
+    <ClInclude Include="MapperJoystickToKeyboard.h" />
     <CLInclude Include="resource.h" />
     <ClInclude Include="HIDLoggerInterface.h" />
     <ClInclude Include="textfile.h" />
