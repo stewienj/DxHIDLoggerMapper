@@ -31,7 +31,6 @@
     <ProjectGuid>{12ADFAFF-5487-4286-AB9F-657B4086B14D}</ProjectGuid>
     <RootNamespace>HIDLoggerDLL</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
