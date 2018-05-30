@@ -35,6 +35,7 @@
     <ClInclude Include="FileLoggerKeyboard.h" />
     <ClInclude Include="LoggedDataArgs.h" />
     <ClInclude Include="MapperJoystickToKeyboard.h" />
+    <ClInclude Include="MapperJoystickToKeyboardConfig.h" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">

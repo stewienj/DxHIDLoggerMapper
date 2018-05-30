@@ -378,6 +378,7 @@
     <ClInclude Include="LimitSingleInstance.h" />
     <ClInclude Include="LoggedDataArgs.h" />
     <ClInclude Include="MapperJoystickToKeyboard.h" />
+    <ClInclude Include="MapperJoystickToKeyboardConfig.h" />
     <CLInclude Include="resource.h" />
     <ClInclude Include="HIDLoggerInterface.h" />
     <ClInclude Include="textfile.h" />

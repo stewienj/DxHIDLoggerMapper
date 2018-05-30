@@ -59,11 +59,11 @@ protected:
   T _lastState;
 public:
   FileLogger(const TCHAR* directory, const TCHAR* suffix, int deviceNo, HIDLogger::HIDLoggerInterface^ loggerInterface) : FileLoggerBase(directory, suffix, deviceNo, loggerInterface) {
-    memset(&_lastState, 0, sizeof(T));
+    _lastState = { 0 };
   }
   virtual void Log(const T& deviceState) = 0;
   HRESULT UpdateInputState() override {
-    T deviceState;
+    T deviceState = { 0 };
     HRESULT hr = GetInputState(sizeof(deviceState), &deviceState);
     // Check if it has changed since last time
     if (memcmp(&_lastState, &deviceState, sizeof(T)) != 0) {

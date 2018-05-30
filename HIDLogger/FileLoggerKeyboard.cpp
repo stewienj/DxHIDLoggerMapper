@@ -60,6 +60,12 @@ void FileLoggerKeyboard::Log(const DIKBSTATE& kbState) {
         case 0xCD:
           StringCchPrintf(sz, 32, TEXT("%s (0x%x)"), TEXT("Right Arrow"), keyNo);
           break;
+        case 0x9D:
+          StringCchPrintf(sz, 32, TEXT("%s (0x%x)"), TEXT("Right Control"), keyNo);
+          break;
+        case 0xB8:
+          StringCchPrintf(sz, 32, TEXT("%s (0x%x)"), TEXT("Right Alt"), keyNo);
+          break;
         default:
           StringCchPrintf(sz, 32, TEXT("Unknown Key (0x%x)"), keyNo);
           break;

@@ -67,7 +67,7 @@ void FileLoggerBase::SetDevice(LPDIRECTINPUTDEVICE8 device) {
 void FileLoggerBase::StartLoggingThread() {
   while (_keepRunning) {
     try {
-      Sleep(15);
+      Sleep(10);
       UpdateInputState();
     } catch (...) {
     }

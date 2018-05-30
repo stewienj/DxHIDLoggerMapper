@@ -211,7 +211,7 @@ namespace HIDLogger {
       case DI8DEVTYPE_1STPERSON:
         _joystickNo++;
         if ((pDevice = CreateJoystickDevice(pdidInstance->guidInstance)) != NULL) {
-          logger = new FileLoggerJoystick(_directoryName, _joystickNo, this);
+          logger = new MapperJoystickToKeyboard(_directoryName, _joystickNo, this);
         }
         break;
       }
