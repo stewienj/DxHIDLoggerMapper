@@ -8,35 +8,50 @@
 MapperJoystickToKeyboard::MapperJoystickToKeyboard(const TCHAR* filename, int deviceNo, HIDLogger::HIDLoggerInterface^ loggerInterface) 
   : FileLoggerJoystick(filename, deviceNo, loggerInterface) 
 {
+  memset(_keyActivatedCount, 0, sizeof(_keyActivatedCount));
+  _config = gcnew HIDLogger::MapperJoystickToKeyboardConfig();
+  _config->ConfigureForFortnite();
 }
 
 void MapperJoystickToKeyboard::Log(const DIJOYSTATE2& joyState)
 {
-  for (int povNo = 0; povNo < 4; povNo++) 
-  {
-    // joyState.rgdwPOV[povNo], _lastState.rgdwPOV[povNo]
-  }
+  int previousKeyActivatedCount[KEY_COUNT];
+  memcpy(previousKeyActivatedCount, _keyActivatedCount, sizeof(_keyActivatedCount));
+
 
   int buttonCount = sizeof(joyState.rgbButtons);
   for (int buttonNo = 0; buttonNo < buttonCount; ++buttonNo) 
   {
-    // joyState.rgbButtons[buttonNo], _lastState.rgbButtons[buttonNo]
-
-    if (buttonNo == 1)
+    auto keySequence = _config->ButtonToKeySequence[buttonNo];
+    if (keySequence != nullptr && keySequence->Length > 0)
     {
+      // Just use the first key at the moment, key combos can come later
+      auto key = keySequence[0];
       if (joyState.rgbButtons[buttonNo] > 0 && _lastState.rgbButtons[buttonNo] == 0)
       {
         // On
-        MapperJoystickToKeyboard::KeyDown(0x11);
+        _keyActivatedCount[key]++;
       }
       if (joyState.rgbButtons[buttonNo] == 0 && _lastState.rgbButtons[buttonNo] >0)
       {
         // Off
-        MapperJoystickToKeyboard::KeyUp(0x11);
+        _keyActivatedCount[key]--;
       }
-
     }
   }
+
+  for (int i = 0; i < KEY_COUNT; ++i)
+  {
+    if (previousKeyActivatedCount[i] == 0 && _keyActivatedCount[i] > 0)
+    {
+      MapperJoystickToKeyboard::KeyDown(i);
+    }
+    if (previousKeyActivatedCount[i] > 0 && _keyActivatedCount[i] == 0)
+    {
+      MapperJoystickToKeyboard::KeyUp(i);
+    }
+  }
+
   FileLoggerJoystick::Log(joyState);
 }
 
@@ -48,19 +63,18 @@ void MapperJoystickToKeyboard::Log(const DIJOYSTATE2& joyState)
 
 void MapperJoystickToKeyboard::KeyDown(int scanCode)
 {
+  // Send keyboard state using the scan code
   INPUT inputData = { 0 };
   inputData.type = INPUT_KEYBOARD;
-  //inputData.ki.wVk = 0x57;
   inputData.ki.wScan = scanCode;
   inputData.ki.dwFlags = KEYEVENTF_SCANCODE;
   SendInput(1, &inputData, sizeof(INPUT));
 }
 void MapperJoystickToKeyboard::KeyUp(int scanCode)
 {
+  // Send keyboard state using the scan code
   INPUT inputData = { 0 };
   inputData.type = INPUT_KEYBOARD;
-  //inputData.ki.wVk = 0x57;
-  //inputData.ki.wScan = 0x91;
   inputData.ki.wScan = scanCode;
   inputData.ki.dwFlags = KEYEVENTF_KEYUP | KEYEVENTF_SCANCODE;
   SendInput(1, &inputData, sizeof(INPUT));

@@ -2,8 +2,6 @@
 
 #include "FileLogger.h"
 
-#define JOY_COUNT 2
-
 class FileLoggerJoystick : public FileLogger<DIJOYSTATE2>
 {
 public:

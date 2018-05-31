@@ -28,7 +28,7 @@ namespace HIDLogger
   public:
     MapperJoystickToKeyboardConfig() 
     {
-      _buttonToKeySequence = gcnew array<array<int>^>(128);
+      _buttonToKeySequence = gcnew array<array<int>^>(sizeof(DIJOYSTATE2::rgbButtons));
       _x = gcnew List<ThresholdAndKey>();
       _y = gcnew List<ThresholdAndKey>();
       _z = gcnew List<ThresholdAndKey>();
