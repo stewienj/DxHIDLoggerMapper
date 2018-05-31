@@ -19,6 +19,7 @@ void MapperJoystickToKeyboard::Log(const DIJOYSTATE2& joyState)
   memcpy(previousKeyActivatedCount, _keyActivatedCount, sizeof(_keyActivatedCount));
 
 
+  // Check the buttons first
   int buttonCount = sizeof(joyState.rgbButtons);
   for (int buttonNo = 0; buttonNo < buttonCount; ++buttonNo) 
   {
@@ -40,6 +41,35 @@ void MapperJoystickToKeyboard::Log(const DIJOYSTATE2& joyState)
     }
   }
 
+  // Check each linear axis position
+  for each(auto combo in _config->X)
+  {
+    CheckAxis(joyState.lX, _lastState.lX, combo.Threshold, combo.Key);
+  }
+  for each(auto combo in _config->Y)
+  {
+    CheckAxis(joyState.lY, _lastState.lY, combo.Threshold, combo.Key);
+  }
+  for each(auto combo in _config->Z)
+  {
+    CheckAxis(joyState.lZ, _lastState.lZ, combo.Threshold, combo.Key);
+  }
+
+  // Check each rotation axis position
+  for each(auto combo in _config->RX)
+  {
+    CheckAxis(joyState.lRx, _lastState.lRx, combo.Threshold, combo.Key);
+  }
+  for each(auto combo in _config->RY)
+  {
+    CheckAxis(joyState.lRy, _lastState.lRy, combo.Threshold, combo.Key);
+  }
+  for each(auto combo in _config->RZ)
+  {
+    CheckAxis(joyState.lRz, _lastState.lRz, combo.Threshold, combo.Key);
+  }
+
+
   for (int i = 0; i < KEY_COUNT; ++i)
   {
     if (previousKeyActivatedCount[i] == 0 && _keyActivatedCount[i] > 0)
@@ -54,6 +84,33 @@ void MapperJoystickToKeyboard::Log(const DIJOYSTATE2& joyState)
 
   FileLoggerJoystick::Log(joyState);
 }
+
+void MapperJoystickToKeyboard::CheckAxis(int current, int previous, int threshold, int key)
+{
+  if (threshold < 0)
+  {
+    if (current < threshold && previous >= threshold)
+    {
+      _keyActivatedCount[key]++;
+    }
+    if (current >= threshold && previous < threshold)
+    {
+      _keyActivatedCount[key]--;
+    }
+  }
+  else if (threshold >= 0)
+  {
+    if (current > threshold && previous <= threshold)
+    {
+      _keyActivatedCount[key]++;
+    }
+    if (current <= threshold && previous > threshold)
+    {
+      _keyActivatedCount[key]--;
+    }
+  }
+}
+
 
 // For key codes
 // https://www.codeproject.com/Articles/7305/Keyboard-Events-Simulation-using-keybd-event-funct

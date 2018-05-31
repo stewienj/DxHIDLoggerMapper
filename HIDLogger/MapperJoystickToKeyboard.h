@@ -19,9 +19,9 @@ private:
 public:
   MapperJoystickToKeyboard(const TCHAR* filename, int deviceNo, HIDLogger::HIDLoggerInterface^ loggerInterface);
 	void Log(const DIJOYSTATE2& joyState) override;
-public:
+protected:
+  void CheckAxis(int current, int previous, int threshold, int key);
   static void KeyDown(int scanCode);
   static void KeyUp(int scanCode);
-
 };
 
