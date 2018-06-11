@@ -42,8 +42,8 @@ namespace HIDLogger
       SetButtonKey(0, 0x39); // Jump / Space
       SetButtonKey(1, 0x1D); // Crouch / Left Control
       SetButtonKey(2, 0x12); // Pick up Item / E
-      SetButtonKey(3, 0x3B); // Select first build item / F1
-      SetButtonKey(4, 0x02); // Select first weapon / 1
+      SetButtonKey(3, 0x10); // Toggle build amnd weapon / Q
+      SetButtonKey(4, 0x15); // Push to talk / Y
 
       _x->Add(ThresholdAndKey( 400, 0x20)); // D
       _x->Add(ThresholdAndKey( 900, 0x2A)); // Left Shift
