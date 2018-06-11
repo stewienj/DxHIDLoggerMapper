@@ -4,11 +4,11 @@
 #include <strsafe.h>
 #include <Windows.h>
 
-MapperJoystickToKeyboard::MapperJoystickToKeyboard(const TCHAR* filename, int deviceNo, HIDLogger::HIDLoggerInterface^ loggerInterface) 
-  : FileLoggerJoystick(filename, deviceNo, loggerInterface) 
+MapperJoystickToKeyboard::MapperJoystickToKeyboard(int deviceNo, HIDMapperDLL::HIDMapperInterface^ loggerInterface) 
+  : MapperJoystick(deviceNo, loggerInterface) 
 {
   memset(_keyActivatedCount, 0, sizeof(_keyActivatedCount));
-  _config = gcnew HIDLogger::MapperJoystickToKeyboardConfig();
+  _config = gcnew HIDMapperDLL::MapperJoystickToKeyboardConfig();
   _config->ConfigureForFortnite();
 }
 
@@ -81,7 +81,7 @@ void MapperJoystickToKeyboard::Log(const DIJOYSTATE2& joyState)
     }
   }
 
-  FileLoggerJoystick::Log(joyState);
+  MapperJoystick::Log(joyState);
 }
 
 void MapperJoystickToKeyboard::CheckAxis(int current, int previous, int threshold, int key)

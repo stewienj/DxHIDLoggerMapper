@@ -5,31 +5,32 @@
       <UniqueIdentifier>{8e114980-c1a3-4ada-ad7c-83caadf5daeb}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
     </Filter>
-    <Filter Include="DXUT">
-      <UniqueIdentifier>{a43c5c25-0e86-4a20-b64a-883785ff74fd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shaders">
-      <UniqueIdentifier>{2c3d4c8c-5d1a-459a-a05a-a4e4b608a44e}</UniqueIdentifier>
-      <Extensions>fx;fxh;hlsl</Extensions>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="hpslib.hr" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FileLogger.cpp" />
-    <ClCompile Include="textfile.cpp" />
-    <ClCompile Include="hpslib.cpp" />
     <ClCompile Include="winmain.cpp" />
+    <ClCompile Include="MapperJoystickToKeyboard.cpp" />
+    <ClCompile Include="MapperBase.cpp" />
+    <ClCompile Include="HIDMapperInterface.cpp" />
+    <ClCompile Include="MapperJoystick.cpp" />
+    <ClCompile Include="MapperKeyboard.cpp" />
+    <ClCompile Include="MapperMouse.cpp" />
+    <ClCompile Include="HIDStateChangeArgs.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FileLogger.h" />
-    <ClInclude Include="textfile.h" />
-    <ClInclude Include="hpsutils.h" />
     <ClInclude Include="LimitSingleInstance.h" />
+    <ClInclude Include="MapperJoystickToKeyboard.h" />
+    <ClInclude Include="MapperJoystickToKeyboardConfig.h" />
+    <ClInclude Include="MapperBase.h" />
+    <ClInclude Include="HIDMapperInterface.h" />
+    <ClInclude Include="MapperJoystick.h" />
+    <ClInclude Include="MapperKeyboard.h" />
+    <ClInclude Include="MapperMouse.h" />
+    <ClInclude Include="HIDStateChangeArgs.h" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -40,5 +41,8 @@
     <ResourceCompile Include="HIDLogger.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Readme Standalone Mapper.txt" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,5 @@
 #include "FileLoggerJoystick.h"
-#include "textfile.h"
+//#include "textfile.h"
 #include <tchar.h>
 #include <strsafe.h>
 

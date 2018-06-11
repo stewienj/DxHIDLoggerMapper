@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -27,35 +27,43 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectName>HIDLogger</ProjectName>
-    <ProjectGuid>{43E20DBD-F46C-467E-A2D0-73B3708C4B72}</ProjectGuid>
-    <RootNamespace>HIDLogger</RootNamespace>
+    <ProjectName>HIDMapperDLL</ProjectName>
+    <ProjectGuid>{12ADFAFF-5487-4286-AB9F-657B4086B14E}</ProjectGuid>
+    <RootNamespace>HIDMapperDLL</RootNamespace>
     <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|X64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <CLRSupport>true</CLRSupport>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|X64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>true</CLRSupport>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|X64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <CLRSupport>true</CLRSupport>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Profile|Win32'">
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings" />
@@ -114,13 +122,11 @@
       <OpenMPSupport>false</OpenMPSupport>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FloatingPointModel>Fast</FloatingPointModel>
-      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalIncludeDirectories>DXUT\Core;DXUT\Optional;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;_DEBUG;DEBUG;PROFILE;_WINDOWS;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
@@ -349,25 +355,32 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico" />
-    <None Include="hpslib.hr" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FileLogger.cpp" />
-    <ClCompile Include="hpslib.cpp" />
+    <ClCompile Include="MapperBase.cpp" />
+    <ClCompile Include="MapperJoystick.cpp" />
+    <ClCompile Include="MapperKeyboard.cpp" />
+    <ClCompile Include="MapperMouse.cpp" />
+    <ClCompile Include="HIDMapperInterface.cpp" />
+    <ClCompile Include="HIDStateChangeArgs.cpp" />
+    <ClCompile Include="MapperJoystickToKeyboard.cpp" />
     <ClCompile Include="winmain.cpp" />
-    <ClCompile Include="textfile.cpp" />
   </ItemGroup>
   <ItemGroup>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="FileLogger.h" />
-    <ClInclude Include="hpsutils.h" />
+    <ClInclude Include="MapperBase.h" />
+    <ClInclude Include="MapperJoystick.h" />
+    <ClInclude Include="MapperKeyboard.h" />
+    <ClInclude Include="MapperMouse.h" />
     <ClInclude Include="LimitSingleInstance.h" />
+    <ClInclude Include="HIDStateChangeArgs.h" />
+    <ClInclude Include="MapperJoystickToKeyboard.h" />
+    <ClInclude Include="MapperJoystickToKeyboardConfig.h" />
     <CLInclude Include="resource.h" />
-    <ClInclude Include="textfile.h" />
+    <ClInclude Include="HIDMapperInterface.h" />
     <ResourceCompile Include="HIDLogger.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Readme Standalone Mapper.txt" />
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>
