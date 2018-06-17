@@ -14,8 +14,6 @@ MapperBase::MapperBase(const TCHAR* suffix, int deviceNo, HIDMapperDLL::HIDMappe
   _pDevice = NULL;
   _deviceLost = false;
   StringCchPrintf(_deviceType, 128, TEXT("%s%d"), suffix, deviceNo);
-  DWORD size = sizeof(_machineName);
-  GetComputerName(_machineName, &size);
 }
 
 MapperBase::~MapperBase(void) {
@@ -72,7 +70,7 @@ HRESULT MapperBase::UIThreadCheckIsValid() {
 
 void MapperBase::NotifyStateChange(TCHAR* controlID, LONG state, LONG previousState) {
   if (state != previousState) {
-	_loggerInterface->OnHIDStateChanged(_machineName, _deviceName, controlID, state, previousState);
+	_loggerInterface->OnHIDStateChanged(_deviceName, controlID, state, previousState);
   }
 }
 

@@ -22,7 +22,6 @@
     <ClCompile Include="FileLogger.cpp" />
     <ClCompile Include="FileLoggerKeyboard.cpp" />
     <ClCompile Include="LoggedDataArgs.cpp" />
-    <ClCompile Include="MapperJoystickToKeyboard.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="textfile.h" />
@@ -34,8 +33,6 @@
     <ClInclude Include="FileLogger.h" />
     <ClInclude Include="FileLoggerKeyboard.h" />
     <ClInclude Include="LoggedDataArgs.h" />
-    <ClInclude Include="MapperJoystickToKeyboard.h" />
-    <ClInclude Include="MapperJoystickToKeyboardConfig.h" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">

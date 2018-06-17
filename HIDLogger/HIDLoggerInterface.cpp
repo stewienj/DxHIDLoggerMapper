@@ -1,4 +1,3 @@
-#include "MapperJoystickToKeyboard.h"
 #include "FileLoggerJoystick.h"
 #include "FileLoggerMouse.h"
 #include "FileLoggerKeyboard.h"
@@ -211,7 +210,7 @@ namespace HIDLogger {
       case DI8DEVTYPE_1STPERSON:
         _joystickNo++;
         if ((pDevice = CreateJoystickDevice(pdidInstance->guidInstance)) != NULL) {
-          logger = new MapperJoystickToKeyboard(_directoryName, _joystickNo, this);
+          logger = new FileLoggerJoystick(_directoryName, _joystickNo, this);
         }
         break;
       }

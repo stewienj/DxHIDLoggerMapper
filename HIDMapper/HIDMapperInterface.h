@@ -47,7 +47,7 @@ namespace HIDMapperDLL {
       }
     }
 
-    void OnHIDStateChanged(TCHAR* machine, TCHAR* device, TCHAR* control, long state, long previousState);
+    void OnHIDStateChanged(TCHAR* device, TCHAR* control, long state, long previousState);
     const DIJOYSTATE2& GetJoystickState();
     static bool OtherInstanceRunning();
     void Error(TCHAR* deviceName, String^ message);

@@ -1,8 +1,7 @@
 #include "HIDStateChangeArgs.h"
 
 namespace HIDMapperDLL {
-  HIDStateChangeArgs::HIDStateChangeArgs(TCHAR* machine, TCHAR* device, TCHAR* control, int state, int previousState) {
-    Machine = gcnew String(machine);
+  HIDStateChangeArgs::HIDStateChangeArgs(TCHAR* device, TCHAR* control, int state, int previousState) {
     Device = gcnew String(device);
     Control = gcnew String(control);
     State = state;

@@ -14,12 +14,9 @@ namespace HIDMapperGui
   {
     private string _signature;
 
-    public StatusMessage(string deviceName, string message) : this(Environment.MachineName, deviceName, message) { }
-
-    public StatusMessage(string machineName, string deviceName, string message)
+    public StatusMessage(string deviceName, string message)
     {
-      _signature = machineName + deviceName + message;
-      MachineName = machineName;
+      _signature = deviceName + message;
       DeviceName = deviceName;
       Message = message;
     }
@@ -32,11 +29,6 @@ namespace HIDMapperGui
       OnPropertyChanged("UpdateCount");
     }
 
-    public string MachineName
-    {
-      get;
-      private set;
-    }
     public string DeviceName
     {
       get;

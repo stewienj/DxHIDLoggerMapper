@@ -325,9 +325,9 @@ namespace HIDMapperDLL {
     }
   }
 
-  void HIDMapperInterface::OnHIDStateChanged(TCHAR* machine, TCHAR* device, TCHAR* control, long state, long previousState) {
+  void HIDMapperInterface::OnHIDStateChanged(TCHAR* device, TCHAR* control, long state, long previousState) {
     try {
-		HIDStateChanged(this, gcnew HIDStateChangeArgs(machine, device, control, state, previousState));
+		HIDStateChanged(this, gcnew HIDStateChangeArgs(device, control, state, previousState));
     } catch (...) {
 
     }

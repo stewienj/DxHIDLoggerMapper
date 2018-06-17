@@ -16,7 +16,6 @@ private:
   bool _canExit;
   bool _keepRunning;
   bool _deviceLost;
-  TCHAR _machineName[128];
   TCHAR _deviceType[128];
   WCHAR _deviceName[MAX_PATH];
   LPDIRECTINPUTDEVICE8 _pDevice;

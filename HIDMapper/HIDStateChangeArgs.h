@@ -7,8 +7,7 @@ namespace HIDMapperDLL {
 
   public ref class HIDStateChangeArgs : public EventArgs {
   public:
-    HIDStateChangeArgs(TCHAR* machine, TCHAR* device, TCHAR* control, int state, int previousState);
-    String^ Machine;
+    HIDStateChangeArgs(TCHAR* device, TCHAR* control, int state, int previousState);
     String^ Device;
     String^ Control;
     int State;
