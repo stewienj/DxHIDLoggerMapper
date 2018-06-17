@@ -14,6 +14,9 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>HIDMapperGui.App</StartupObject>
+  </PropertyGroup>
   <ImportGroup Label="PropertySheets">
     <Import Project="$(SolutionDir)\PropertySheets\CsOutputDirectories.props" Condition="exists('$(SolutionDir)\PropertySheets\CsOutputDirectories.props')" />
   </ImportGroup>
@@ -38,6 +41,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DebugWindow.xaml.cs">
+      <DependentUpon>DebugWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DebugDevicesControl.xaml.cs">
+      <DependentUpon>DebugDevicesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\ControlMonitor.cs" />
+    <Compile Include="ViewModel\DeviceMonitor.cs" />
+    <Compile Include="ViewModel\DevicesManager.cs" />
+    <Compile Include="ViewModel\Extensions.cs" />
+    <Compile Include="ViewModel\StatusMessage.cs" />
+    <Compile Include="ViewModel\Workspace.cs" />
+    <Page Include="DebugWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\DebugDevicesControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -76,6 +99,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\HIDMapper\HIDMapperDLL.vcxproj">
+      <Project>{12adfaff-5487-4286-ab9f-657b4086b14e}</Project>
+      <Name>HIDMapperDLL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

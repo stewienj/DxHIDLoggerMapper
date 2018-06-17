@@ -3,10 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:HIDMapperGui"
+        xmlns:local="clr-namespace:HIDMapperGui.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        DataContext="{Binding Source={x:Static local:Workspace.Instance}}"
+        Title="{Binding Title}" Height="450" Width="800">
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+  </Grid>
 </Window>

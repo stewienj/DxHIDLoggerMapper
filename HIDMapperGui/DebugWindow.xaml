@@ -1,0 +1,13 @@
+﻿<Window x:Class="HIDMapperGui.DebugWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local ="clr-namespace:HIDMapperGui"
+        Title="HID Logger" Height="600" Width="1200">
+  <DockPanel LastChildFill="True">
+    <StackPanel DockPanel.Dock="Left">
+      <Button IsEnabled="{Binding ElementName=_devicesControl, Path = DevicesManager.NotRunning}" Click="Start_Click">Start</Button>
+      <Button IsEnabled="{Binding ElementName=_devicesControl, Path = DevicesManager.Running}" Click="Stop_Click">Stop</Button>
+    </StackPanel>
+    <local:DebugDevicesControl x:Name="_devicesControl"/>
+  </DockPanel>
+</Window>
