@@ -16,19 +16,23 @@ namespace HIDMapperGui
   public class DevicesManager : INotifyPropertyChanged
   {
     private ObservableCollection<DeviceMonitor> _devices = new ObservableCollection<DeviceMonitor>();
+    private ObservableCollection<DeviceMonitor> _unknownDevices = new ObservableCollection<DeviceMonitor>();
+    private ObservableCollection<DeviceMonitor> _keyboardDevices = new ObservableCollection<DeviceMonitor>();
+    private ObservableCollection<DeviceMonitor> _mouseDevices = new ObservableCollection<DeviceMonitor>();
+    private ObservableCollection<DeviceMonitor> _joystickDevices = new ObservableCollection<DeviceMonitor>();
     private ObservableCollection<StatusMessage> _messages = new ObservableCollection<StatusMessage>();
     private Dictionary<StatusMessage, StatusMessage> _messagesDictionary = new Dictionary<StatusMessage, StatusMessage>();
     private Dictionary<string, DeviceMonitor> _nameToDeviceMonitor = new Dictionary<string, DeviceMonitor>();
-    private HIDMapperInterface _logger = new HIDMapperInterface();
+    private HIDMapperInterface _mapper = new HIDMapperInterface();
     private BlockingCollection<Action> _actionQueue = new BlockingCollection<Action>();
     private Dispatcher _dispatcher;
 
     public DevicesManager(Dispatcher dispatcher)
     {
       _dispatcher = dispatcher;
-      _logger.DeviceChanged += _logger_DeviceChanged;
-      _logger.HIDStateChanged += _logger_InfoLogged;
-      _logger.StartedOrStopped += _logger_StartedOrStopped;
+      _mapper.DeviceChanged += _mapper_DeviceChanged;
+      _mapper.HIDStateChanged += _mapper_ControlStateChanged;
+      _mapper.StartedOrStopped += _logger_StartedOrStopped;
       StartLoggerProcessor();
     }
 
@@ -91,21 +95,37 @@ namespace HIDMapperGui
         deviceMonitor = new DeviceMonitor(deviceName, deviceType);
         _nameToDeviceMonitor.Add(deviceName, deviceMonitor);
         _devices.Add(deviceMonitor);
+        switch (deviceType)
+        {
+          case DeviceType.Unknown:
+            _unknownDevices.Add(deviceMonitor);
+            break;
+          case DeviceType.Keyboard:
+            _keyboardDevices.Add(deviceMonitor);
+            break;
+          case DeviceType.Mouse:
+            _mouseDevices.Add(deviceMonitor);
+            break;
+          case DeviceType.Joystick:
+            _joystickDevices.Add(deviceMonitor);
+            break;
+        }
+
       }
       return deviceMonitor;
     }
 
-    void _logger_InfoLogged(object sender, HIDStateChangeArgs e)
+    void _mapper_ControlStateChanged(object sender, HIDStateChangeArgs e)
     {
       _actionQueue.Add(new Action(() =>
       {
         DeviceMonitor deviceMonitor = AddOrGetDevice(e.Device, e.DeviceType);
         deviceMonitor.UpdateControl(e.Control, e.State, e.PreviousState);
-        OnDataLoggedToFile(e);
+        OnControlStateChanged(e);
       }));
     }
 
-    void _logger_DeviceChanged(object sender, DeviceInfo e)
+    void _mapper_DeviceChanged(object sender, DeviceInfo e)
     {
       Action action = null;
       switch (e.InfoAction)
@@ -143,6 +163,21 @@ namespace HIDMapperGui
             {
               _nameToDeviceMonitor.Remove(e.Device);
               _devices.Remove(deviceMonitor);
+              switch(e.DeviceType)
+              {
+                case DeviceType.Unknown:
+                  _unknownDevices.Remove(deviceMonitor);
+                  break;
+                case DeviceType.Keyboard:
+                  _keyboardDevices.Remove(deviceMonitor);
+                  break;
+                case DeviceType.Mouse:
+                  _mouseDevices.Remove(deviceMonitor);
+                  break;
+                case DeviceType.Joystick:
+                  _joystickDevices.Remove(deviceMonitor);
+                  break;
+              }
             }
           };
           break;
@@ -213,18 +248,27 @@ namespace HIDMapperGui
 
     public ObservableCollection<DeviceMonitor> Devices => _devices;
 
+    public ObservableCollection<DeviceMonitor> UnknownDevices => _unknownDevices;
+
+    public ObservableCollection<DeviceMonitor> KeyboardDevices => _keyboardDevices;
+
+    public ObservableCollection<DeviceMonitor> MouseDevices => _mouseDevices;
+
+    public ObservableCollection<DeviceMonitor> JoystickDevices => _joystickDevices;
+
+
     public ObservableCollection<StatusMessage> Messages => _messages;
 
     public ObservableCollection<string> ErrorMessages { get; } = new ObservableCollection<string>();
 
     public void Start()
     {
-      _logger.StartMonitoring();
+      _mapper.StartMonitoring();
     }
 
     public void Stop()
     {
-      _logger.StopMonitoring();
+      _mapper.StopMonitoring();
     }
 
     private void OnPropertyChanged(string propertyName)
@@ -235,16 +279,16 @@ namespace HIDMapperGui
       }
     }
 
-    private void OnDataLoggedToFile(HIDStateChangeArgs args)
+    private void OnControlStateChanged(HIDStateChangeArgs args)
     {
-      var handler = DataLoggedToFile;
+      var handler = ControlStateChanged;
       if (handler != null)
       {
         handler(this, args);
       }
     }
 
-    public event EventHandler<HIDStateChangeArgs> DataLoggedToFile;
+    public event EventHandler<HIDStateChangeArgs> ControlStateChanged;
 
     public event PropertyChangedEventHandler PropertyChanged;
   }
