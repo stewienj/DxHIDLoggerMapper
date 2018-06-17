@@ -41,6 +41,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\JoystickMappers.xaml.cs">
+      <DependentUpon>JoystickMappers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DebugWindow.xaml.cs">
       <DependentUpon>DebugWindow.xaml</DependentUpon>
     </Compile>
@@ -51,8 +54,13 @@
     <Compile Include="ViewModel\DeviceMonitor.cs" />
     <Compile Include="ViewModel\DevicesManager.cs" />
     <Compile Include="ViewModel\Extensions.cs" />
+    <Compile Include="ViewModel\NotifyPropertyChanged.cs" />
     <Compile Include="ViewModel\StatusMessage.cs" />
     <Compile Include="ViewModel\Workspace.cs" />
+    <Page Include="Controls\JoystickMappers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DebugWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

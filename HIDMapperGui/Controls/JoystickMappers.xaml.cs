@@ -1,0 +1,67 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace HIDMapperGui.Controls
+{
+  /// <summary>
+  /// Interaction logic for JoystickMappers.xaml
+  /// </summary>
+  public partial class JoystickMappers : UserControl
+  {
+    public JoystickMappers()
+    {
+      InitializeComponent();
+    }
+
+    public DevicesManager DevicesManager
+    {
+      get { return (DevicesManager)GetValue(DevicesManagerProperty); }
+      set { SetValue(DevicesManagerProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for DevicesManager.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty DevicesManagerProperty =
+        DependencyProperty.Register("DevicesManager", typeof(DevicesManager), typeof(JoystickMappers), new PropertyMetadata(null, (d, e) =>
+        {
+          if (d is JoystickMappers control)
+          {
+            if (e.OldValue is DevicesManager oldManager)
+            {
+              oldManager.Devices.CollectionChanged -= control.Devices_CollectionChanged;
+            }
+            if (e.NewValue is DevicesManager newManager)
+            {
+              newManager.Devices.CollectionChanged += control.Devices_CollectionChanged;
+            }
+         }
+        }));
+
+    void Devices_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    {
+      Task.Run(() =>
+      {
+        // Need to do this on the next pass of the dispatcher after the tab item has been created if we go from none to 1
+        Dispatcher.Invoke(() =>
+        {
+          if (_joystickTabs.SelectedItem == null && _joystickTabs.Items.Count > 0)
+          {
+            _joystickTabs.SelectedIndex = 0;
+          }
+        });
+      });
+    }
+
+  }
+}

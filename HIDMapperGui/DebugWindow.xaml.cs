@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HIDMapperGui.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,33 +21,40 @@ namespace HIDMapperGui
   /// </summary>
   public partial class DebugWindow : Window
   {
+    private Workspace _workspace;
     public DebugWindow()
     {
+      this.DataContextChanged += DebugWindow_DataContextChanged;
       this.Loaded += MainWindow_Loaded;
       this.Closing += MainWindow_Closing;
       InitializeComponent();
     }
 
+    private void DebugWindow_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+      _workspace = (Workspace)DataContext;
+    }
+
     void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
-      if (!_devicesControl.DevicesManager.Running)
+      if (!_workspace.DevicesManager.Running)
       {
-        _devicesControl.DevicesManager.Start();
+        _workspace.DevicesManager.Start();
       }
     }
 
     void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
     {
-      _devicesControl.DevicesManager.Stop();
+      _workspace.DevicesManager.Stop();
     }
 
     private void Start_Click(object sender, RoutedEventArgs e)
     {
-      _devicesControl.DevicesManager.Start();
+      _workspace.DevicesManager.Start();
     }
     private void Stop_Click(object sender, RoutedEventArgs e)
     {
-      _devicesControl.DevicesManager.Stop();
+      _workspace.DevicesManager.Stop();
     }
   }
 }

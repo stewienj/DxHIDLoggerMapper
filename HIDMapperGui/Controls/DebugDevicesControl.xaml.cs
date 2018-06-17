@@ -22,12 +22,35 @@ namespace HIDMapperGui {
     private DevicesManager _devicesManager;
 
     public DebugDevicesControl() {
-      _devicesManager = new DevicesManager(this.Dispatcher);
-      OnPropertyChanged("DevicesManager");
-      this.DataContext = _devicesManager;
-      _devicesManager.Devices.CollectionChanged += Devices_CollectionChanged;
       InitializeComponent();
     }
+
+    public DevicesManager DevicesManager
+    {
+      get { return (DevicesManager)GetValue(DevicesManagerProperty); }
+      set { SetValue(DevicesManagerProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for DevicesManager.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty DevicesManagerProperty =
+        DependencyProperty.Register("DevicesManager", typeof(DevicesManager), typeof(DebugDevicesControl), new PropertyMetadata(null,(d,e)=>
+        {
+          if (d is DebugDevicesControl control)
+          {
+            if (e.OldValue is DevicesManager oldManager)
+            {
+              oldManager.Devices.CollectionChanged -= control.Devices_CollectionChanged;
+            }
+            if (e.NewValue is DevicesManager newManager)
+            {
+              newManager.Devices.CollectionChanged += control.Devices_CollectionChanged;
+            }
+
+            control._devicesManager = e.NewValue as DevicesManager;
+          }
+        }));
+
+
 
     void Devices_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) {
       if (_deviceTabs.SelectedItem == null && _deviceTabs.Items.Count > 0) {
@@ -35,23 +58,12 @@ namespace HIDMapperGui {
       }
     }
 
-    private void DevicesControl_Unloaded(object sender, RoutedEventArgs e) {
-      _devicesManager.Stop();
-    }
-
-
     private void Start_Click(object sender, RoutedEventArgs e) {
       _devicesManager.Start();
     }
 
     private void Stop_Click(object sender, RoutedEventArgs e) {
       _devicesManager.Stop();
-    }
-
-    public DevicesManager DevicesManager {
-      get {
-        return _devicesManager;
-      }
     }
 
     private void OnPropertyChanged(string propertyName) {

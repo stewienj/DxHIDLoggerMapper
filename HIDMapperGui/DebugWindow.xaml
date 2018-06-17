@@ -2,12 +2,22 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local ="clr-namespace:HIDMapperGui"
-        Title="HID Logger" Height="600" Width="1200">
-  <DockPanel LastChildFill="True">
-    <StackPanel DockPanel.Dock="Left">
-      <Button IsEnabled="{Binding ElementName=_devicesControl, Path = DevicesManager.NotRunning}" Click="Start_Click">Start</Button>
-      <Button IsEnabled="{Binding ElementName=_devicesControl, Path = DevicesManager.Running}" Click="Stop_Click">Stop</Button>
-    </StackPanel>
-    <local:DebugDevicesControl x:Name="_devicesControl"/>
-  </DockPanel>
+        xmlns:localControls ="clr-namespace:HIDMapperGui.Controls"
+        xmlns:localViewModel ="clr-namespace:HIDMapperGui.ViewModel"
+        DataContext="{x:Static localViewModel:Workspace.Instance}"
+        Title="Joystick Mapper Debug Window" Height="600" Width="1200">
+  <TabControl>
+    <TabItem Header="Diagnostics">
+      <DockPanel LastChildFill="True">
+        <StackPanel DockPanel.Dock="Left">
+          <Button IsEnabled="{Binding DevicesManager.NotRunning}" Click="Start_Click">Start</Button>
+          <Button IsEnabled="{Binding DevicesManager.Running}" Click="Stop_Click">Stop</Button>
+        </StackPanel>
+        <local:DebugDevicesControl DevicesManager="{Binding DevicesManager}"/>
+      </DockPanel>
+    </TabItem>
+    <TabItem Header="Main Interface">
+      <localControls:JoystickMappers DevicesManager="{Binding DevicesManager}" />
+    </TabItem>
+  </TabControl>
 </Window>

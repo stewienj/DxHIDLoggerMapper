@@ -6,17 +6,25 @@ using System.Threading.Tasks;
 
 namespace HIDMapperGui.ViewModel
 {
-  public class Workspace
+  public class Workspace : NotifyPropertyChanged
   {
     private static Lazy<Workspace> _instance = new Lazy<Workspace>(() => new Workspace(), true);
 
     private Workspace()
     {
+      DevicesManager = new DevicesManager(App.Current.Dispatcher);
     }
 
     public static Workspace Instance => _instance.Value;
 
     public string Title => "Joystick Mapper V1.0";
+
+    private DevicesManager _devicesManager = null;
+    public DevicesManager DevicesManager
+    {
+      get => _devicesManager;
+      set => SetValue(ref _devicesManager, value);
+    }
 
   }
 }
