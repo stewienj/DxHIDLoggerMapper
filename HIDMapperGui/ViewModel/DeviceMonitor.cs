@@ -14,7 +14,7 @@ namespace HIDMapperGui
     private ObservableCollection<ControlMonitor> _controls = new ObservableCollection<ControlMonitor>();
     private Dictionary<string, ControlMonitor> _nameToControlMonitor = new Dictionary<string, ControlMonitor>();
 
-    public DeviceMonitor(string deviceName)
+    public DeviceMonitor(string deviceName, DeviceType deviceType)
     {
       DeviceName = deviceName;
     }

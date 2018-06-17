@@ -24,7 +24,7 @@ namespace HIDMapperDLL {
     void MonitorDevices();
     HRESULT InitDirectInput();
     void FreeDirectInput();
-    void FireDeviceChanged(const TCHAR* deviceName, DeviceInfo::InfoType action);
+    void FireDeviceChanged(const TCHAR* deviceName, HIDMapperDLL::DeviceType deviceType, DeviceInfo::InfoType action);
     void FireStartedOrStopped(StartStopStatus::StartStopType startedOrStopped);
 
     static CLimitSingleInstance* g_SingleInstanceObj = new CLimitSingleInstance(TEXT("Global\\{E5CF13DB-AEB5-43F9-ADB3-773A4A675A82}"));
@@ -47,10 +47,10 @@ namespace HIDMapperDLL {
       }
     }
 
-    void OnHIDStateChanged(TCHAR* device, TCHAR* control, long state, long previousState);
+    void OnHIDStateChanged(TCHAR* device, DeviceType deviceType, TCHAR* control, long state, long previousState);
     const DIJOYSTATE2& GetJoystickState();
     static bool OtherInstanceRunning();
-    void Error(TCHAR* deviceName, String^ message);
+    void Error(TCHAR* deviceName, HIDMapperDLL::DeviceType deviceType, String^ message);
 
     event EventHandler<HIDStateChangeArgs^>^ HIDStateChanged;
     event EventHandler<DeviceInfo^>^ DeviceChanged;

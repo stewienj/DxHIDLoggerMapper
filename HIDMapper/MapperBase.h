@@ -5,6 +5,7 @@
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
 #include "vcclr.h"
+#include "HIDStateChangeArgs.h"
 
 namespace HIDMapperDLL {
   ref class HIDMapperInterface;
@@ -16,7 +17,8 @@ private:
   bool _canExit;
   bool _keepRunning;
   bool _deviceLost;
-  TCHAR _deviceType[128];
+  HIDMapperDLL::DeviceType _deviceType;
+  int _deviceNo;
   WCHAR _deviceName[MAX_PATH];
   LPDIRECTINPUTDEVICE8 _pDevice;
 
@@ -33,12 +35,13 @@ protected:
   virtual HRESULT GetInputState(DWORD size, void* newState);
   void NotifyStateChange(TCHAR* controlID, LONG state, LONG previousState);
 public:
-  MapperBase(const TCHAR* suffix, int deviceNo, HIDMapperDLL::HIDMapperInterface^ loggerInterface);
+  MapperBase(HIDMapperDLL::DeviceType deviceType, int deviceNo, HIDMapperDLL::HIDMapperInterface^ loggerInterface);
   virtual ~MapperBase(void);
   void Start();
   void Stop();
   void SetDevice(LPDIRECTINPUTDEVICE8 device);
   const WCHAR* GetDeviceName() { return _deviceName; }
+  const HIDMapperDLL::DeviceType GetDeviceType() { return _deviceType; }
   HRESULT UIThreadCheckIsValid();
 };
 
@@ -47,7 +50,7 @@ class HIDMapper : public MapperBase {
 protected:
   T _lastState;
 public:
-	HIDMapper(const TCHAR* suffix, int deviceNo, HIDMapperDLL::HIDMapperInterface^ loggerInterface) : MapperBase(suffix, deviceNo, loggerInterface) {
+	HIDMapper(HIDMapperDLL::DeviceType deviceType, int deviceNo, HIDMapperDLL::HIDMapperInterface^ loggerInterface) : MapperBase(deviceType, deviceNo, loggerInterface) {
     _lastState = { 0 };
   }
   virtual void Log(const T& deviceState) = 0;

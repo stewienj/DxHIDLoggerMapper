@@ -179,7 +179,7 @@ namespace HIDMapperDLL {
 
     if (foundLogger != _guidToLogger->end()) {
 
-      FireDeviceChanged((*foundLogger).second->GetDeviceName(), DeviceInfo::InfoType::Checked);
+      FireDeviceChanged((*foundLogger).second->GetDeviceName(), (*foundLogger).second->GetDeviceType(), DeviceInfo::InfoType::Checked);
 
     } else {
 
@@ -219,7 +219,7 @@ namespace HIDMapperDLL {
       if (logger != NULL) {
         logger->SetDevice(pDevice);
         (*_guidToLogger)[pdidInstance->guidInstance] = logger;
-        FireDeviceChanged(logger->GetDeviceName(), DeviceInfo::InfoType::Added);
+        FireDeviceChanged(logger->GetDeviceName(), logger->GetDeviceType(), DeviceInfo::InfoType::Added);
         logger->Start();
       }
     }
@@ -260,7 +260,7 @@ namespace HIDMapperDLL {
         for (std::pair<const GUID, MapperBase*> logger : loggerToRemove) {
           _guidToLogger->erase(logger.first);
           logger.second->Stop();
-          FireDeviceChanged(logger.second->GetDeviceName(), DeviceInfo::InfoType::Removed);
+          FireDeviceChanged(logger.second->GetDeviceName(), logger.second->GetDeviceType(), DeviceInfo::InfoType::Removed);
           delete logger.second;
         }
 
@@ -309,25 +309,25 @@ namespace HIDMapperDLL {
     }
   }
 
-  void HIDMapperInterface::FireDeviceChanged(const TCHAR* deviceName, DeviceInfo::InfoType action) {
+  void HIDMapperInterface::FireDeviceChanged(const TCHAR* deviceName, HIDMapperDLL::DeviceType deviceType, DeviceInfo::InfoType action) {
     try {
-      DeviceChanged(this, gcnew DeviceInfo(deviceName, action));
+      DeviceChanged(this, gcnew DeviceInfo(deviceName, deviceType, action));
     } catch (...) {
 
     }
   }
 
-  void HIDMapperInterface::Error(TCHAR* deviceName, String^ message) {
+  void HIDMapperInterface::Error(TCHAR* deviceName, HIDMapperDLL::DeviceType deviceType, String^ message) {
     try {
-      DeviceChanged(this, gcnew DeviceInfoError(deviceName, message));
+      DeviceChanged(this, gcnew DeviceInfoError(deviceName, deviceType, message));
     } catch (...) {
 
     }
   }
 
-  void HIDMapperInterface::OnHIDStateChanged(TCHAR* device, TCHAR* control, long state, long previousState) {
+  void HIDMapperInterface::OnHIDStateChanged(TCHAR* device, DeviceType deviceType, TCHAR* control, long state, long previousState) {
     try {
-		HIDStateChanged(this, gcnew HIDStateChangeArgs(device, control, state, previousState));
+		HIDStateChanged(this, gcnew HIDStateChangeArgs(device, deviceType, control, state, previousState));
     } catch (...) {
 
     }

@@ -6,14 +6,15 @@
 #define SAFE_DELETE(p)  { if(p) { delete (p);     (p)=NULL; } }
 #define SAFE_RELEASE(p) { if(p) { (p)->Release(); (p)=NULL; } }
 
-MapperBase::MapperBase(const TCHAR* suffix, int deviceNo, HIDMapperDLL::HIDMapperInterface^ loggerInterface) {
+MapperBase::MapperBase(HIDMapperDLL::DeviceType deviceType, int deviceNo, HIDMapperDLL::HIDMapperInterface^ loggerInterface) {
   _loggerInterface = loggerInterface;
   // initialize class variables
   _canExit = true;
   _keepRunning = true;
   _pDevice = NULL;
   _deviceLost = false;
-  StringCchPrintf(_deviceType, 128, TEXT("%s%d"), suffix, deviceNo);
+  _deviceType = deviceType;
+  _deviceNo = deviceNo;
 }
 
 MapperBase::~MapperBase(void) {
@@ -70,7 +71,7 @@ HRESULT MapperBase::UIThreadCheckIsValid() {
 
 void MapperBase::NotifyStateChange(TCHAR* controlID, LONG state, LONG previousState) {
   if (state != previousState) {
-	_loggerInterface->OnHIDStateChanged(_deviceName, controlID, state, previousState);
+	_loggerInterface->OnHIDStateChanged(_deviceName, _deviceType, controlID, state, previousState);
   }
 }
 
