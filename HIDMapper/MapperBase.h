@@ -33,7 +33,8 @@ private:
 protected:
   gcroot<HIDMapperDLL::HIDMapperInterface^> _loggerInterface;
   virtual HRESULT GetInputState(DWORD size, void* newState);
-  void NotifyStateChange(TCHAR* controlID, LONG state, LONG previousState);
+  void NotifyStateChangeButton(TCHAR* controlID, LONG state, LONG previousState);
+  void NotifyStateChangeAxis(TCHAR* controlID, LONG state, LONG previousState);
 public:
   MapperBase(HIDMapperDLL::DeviceType deviceType, int deviceNo, HIDMapperDLL::HIDMapperInterface^ loggerInterface);
   virtual ~MapperBase(void);

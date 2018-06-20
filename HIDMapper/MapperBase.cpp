@@ -69,11 +69,18 @@ HRESULT MapperBase::UIThreadCheckIsValid() {
   }
 }
 
-void MapperBase::NotifyStateChange(TCHAR* controlID, LONG state, LONG previousState) {
-  if (state != previousState) {
+void MapperBase::NotifyStateChangeButton(TCHAR* controlID, LONG state, LONG previousState) {
+  if (state != previousState && state != -1) {
 	_loggerInterface->OnHIDStateChanged(_deviceName, _deviceType, controlID, state, previousState);
   }
 }
+
+void MapperBase::NotifyStateChangeAxis(TCHAR* controlID, LONG state, LONG previousState) {
+  if (state != previousState && state != -1) {
+    _loggerInterface->OnHIDStateChanged(_deviceName, _deviceType, controlID, state, previousState);
+  }
+}
+
 
 //-----------------------------------------------------------------------------
 // Name: UpdateInputState()

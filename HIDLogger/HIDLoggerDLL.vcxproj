@@ -99,6 +99,7 @@
       <TargetMachine>MachineX86</TargetMachine>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <DelayLoadDLLs>%(DelayLoadDLLs)</DelayLoadDLLs>
+      <AssemblyDebug>true</AssemblyDebug>
     </Link>
     <Manifest>
       <EnableDPIAwareness>true</EnableDPIAwareness>
@@ -127,6 +128,7 @@
       <TargetMachine>MachineX64</TargetMachine>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <DelayLoadDLLs>%(DelayLoadDLLs)</DelayLoadDLLs>
+      <AssemblyDebug>true</AssemblyDebug>
     </Link>
     <Manifest>
       <EnableDPIAwareness>true</EnableDPIAwareness>

@@ -71,7 +71,7 @@ void MapperKeyboard::Log(const DIKBSTATE& kbState) {
           break;
         }
       }
-      NotifyStateChange(sz, kbState.keys[keyNo], _lastState.keys[keyNo]);
+      NotifyStateChangeButton(sz, kbState.keys[keyNo], _lastState.keys[keyNo]);
     }
   }
 }
