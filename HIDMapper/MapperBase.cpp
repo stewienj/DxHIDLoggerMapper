@@ -81,7 +81,6 @@ void MapperBase::NotifyStateChange(TCHAR* controlID, LONG state, LONG previousSt
 //-----------------------------------------------------------------------------
 HRESULT MapperBase::GetInputState(DWORD size, void* newState) {
   HRESULT hr;
-  TCHAR strText[512] = { 0 }; // Device state text
 
   if (NULL == _pDevice)
     return S_OK;

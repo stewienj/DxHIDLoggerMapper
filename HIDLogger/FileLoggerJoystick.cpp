@@ -20,13 +20,7 @@ void FileLoggerJoystick::Log(const DIJOYSTATE2& joyState)
     StringCchPrintf(sz, 32, TEXT("Button%d"), 1 + buttonNo);
     LogBaseButton(sz, joyState.rgbButtons[buttonNo], _lastState.rgbButtons[buttonNo]);
   }
-
-  LogBaseMovement(TEXT("Steering"), joyState.lX, _lastState.lX);
-  LogBaseMovement(TEXT("Accelerator"), joyState.lY, _lastState.lY);
-  LogBaseMovement(TEXT("Brake"), joyState.lRz, _lastState.lRz);
-  LogBaseMovement(TEXT("Gears"), joyState.rglSlider[0], _lastState.rglSlider[0]);
-  LogBaseMovement(TEXT("Clutch"), joyState.rglSlider[1], _lastState.rglSlider[1]);
-
+  
   LogBaseMovement(TEXT("X"), joyState.lX, _lastState.lX);
   LogBaseMovement(TEXT("Y"), joyState.lY, _lastState.lY);
   LogBaseMovement(TEXT("Z"), joyState.lZ, _lastState.lZ);
