@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HIDMapperGui.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace HIDMapperGui
   /// <summary>
   /// Monitors individual controls on a device. A list of these will be contained by a device.
   /// </summary>
-  public class ControlMonitor : INotifyPropertyChanged
+  public class ControlMonitor : NotifyPropertyChanged
   {
 
     public ControlMonitor(string controlName)
@@ -35,79 +36,30 @@ namespace HIDMapperGui
     private int _state = -1;
     public int State
     {
-      get
-      {
-        return _state;
-      }
-      private set
-      {
-        if (value != _state)
-        {
-          _state = value;
-          OnPropertyChanged("State");
-        }
-      }
+      get => _state;
+      private set => SetValue(ref _state, value);
     }
 
     private int _previousState = -1;
     public int PreviousState
     {
-      get
-      {
-        return _previousState;
-      }
-      private set
-      {
-        if (value != _previousState)
-        {
-          _previousState = value;
-          OnPropertyChanged("PreviousState");
-        }
-      }
+      get => _previousState;
+      private set => SetValue(ref _previousState, value);
     }
 
     private int _updateCount = 0;
     public int UpdateCount
     {
-      get
-      {
-        return _updateCount;
-      }
-      private set
-      {
-        if (value != _updateCount)
-        {
-          _updateCount = value;
-          OnPropertyChanged("UpdateCount");
-        }
-      }
+      get => _updateCount;
+      private set => SetValue(ref _updateCount, value);
     }
 
     private DateTime _lastUpdate = DateTime.Now;
     public DateTime LastUpdate
     {
-      get
-      {
-        return _lastUpdate;
-      }
-      private set
-      {
-        if (value != _lastUpdate)
-        {
-          _lastUpdate = value;
-          OnPropertyChanged("LastUpdate");
-        }
-      }
+      get => _lastUpdate;
+      private set => SetValue(ref _lastUpdate, value);
     }
 
-    private void OnPropertyChanged(string propertyName)
-    {
-      if (PropertyChanged != null)
-      {
-        PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-      }
-    }
-
-    public event PropertyChangedEventHandler PropertyChanged;
   }
 }

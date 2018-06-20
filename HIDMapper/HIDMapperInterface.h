@@ -16,6 +16,7 @@ namespace HIDMapperDLL {
     std::map<const GUID, MapperBase*>* _guidToLogger;
     int _joystickNo;
     bool _keyboardMonitoringEnabled;
+    bool _suppressMapping;
 
     LPDIRECTINPUTDEVICE8 CreateJoystickDevice(GUID guid);
     LPDIRECTINPUTDEVICE8 CreateMouseDevice(GUID guid);
@@ -44,6 +45,16 @@ namespace HIDMapperDLL {
       }
       void set(bool keyboardLoggingEnabled) {
         _keyboardMonitoringEnabled = keyboardLoggingEnabled;
+      }
+    }
+
+    property bool SuppressMapping
+    {
+      bool get() {
+        return _suppressMapping;
+      }
+      void set(bool suppressMapping) {
+        _suppressMapping = suppressMapping;
       }
     }
 

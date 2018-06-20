@@ -21,19 +21,15 @@ namespace HIDMapperGui
   /// </summary>
   public partial class DebugWindow : Window
   {
-    private Workspace _workspace;
+    private Workspace _workspace = new Workspace(true);
     public DebugWindow()
     {
-      this.DataContextChanged += DebugWindow_DataContextChanged;
       this.Loaded += MainWindow_Loaded;
       this.Closing += MainWindow_Closing;
+      DataContext = _workspace;
       InitializeComponent();
     }
 
-    private void DebugWindow_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-    {
-      _workspace = (Workspace)DataContext;
-    }
 
     void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
@@ -55,6 +51,11 @@ namespace HIDMapperGui
     private void Stop_Click(object sender, RoutedEventArgs e)
     {
       _workspace.DevicesManager.Stop();
+    }
+
+    private void EnableMapping_Click(object sender, RoutedEventArgs e)
+    {
+      _workspace.DevicesManager.EnableMapping();
     }
   }
 }

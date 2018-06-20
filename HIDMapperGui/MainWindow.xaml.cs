@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HIDMapperGui.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,14 +16,15 @@ using System.Windows.Shapes;
 
 namespace HIDMapperGui
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+  /// <summary>
+  /// Interaction logic for MainWindow.xaml
+  /// </summary>
+  public partial class MainWindow : Window
+  {
+    public MainWindow()
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+      this.DataContext = new Workspace();
+      InitializeComponent();
     }
+  }
 }

@@ -1,5 +1,6 @@
 #include "MapperJoystickToKeyboard.h"
 #include "MapperJoystickToKeyboardConfig.h"
+#include "HIDMapperInterface.h"
 #include <tchar.h>
 #include <strsafe.h>
 #include <Windows.h>
@@ -14,6 +15,12 @@ MapperJoystickToKeyboard::MapperJoystickToKeyboard(int deviceNo, HIDMapperDLL::H
 
 void MapperJoystickToKeyboard::Log(const DIJOYSTATE2& joyState)
 {
+  if (_loggerInterface->SuppressMapping)
+  {
+    MapperJoystick::Log(joyState);
+    return;
+  }
+
   int previousKeyActivatedCount[KEY_COUNT];
   memcpy(previousKeyActivatedCount, _keyActivatedCount, sizeof(_keyActivatedCount));
 

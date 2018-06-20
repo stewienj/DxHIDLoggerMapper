@@ -8,14 +8,15 @@ namespace HIDMapperGui.ViewModel
 {
   public class Workspace : NotifyPropertyChanged
   {
-    private static Lazy<Workspace> _instance = new Lazy<Workspace>(() => new Workspace(), true);
-
-    private Workspace()
+    public Workspace()
     {
       DevicesManager = new DevicesManager(App.Current.Dispatcher);
     }
 
-    public static Workspace Instance => _instance.Value;
+    public Workspace(bool suppressMapping)
+    {
+      DevicesManager = new DevicesManager(App.Current.Dispatcher, suppressMapping);
+    }
 
     public string Title => "Joystick Mapper V1.0";
 

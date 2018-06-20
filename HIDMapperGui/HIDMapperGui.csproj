@@ -39,9 +39,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\Device2DAxisView.xaml.cs">
+      <DependentUpon>Device2DAxisView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\JoystickMappers.xaml.cs">
       <DependentUpon>JoystickMappers.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SizeObserver.cs" />
     <Compile Include="DebugWindow.xaml.cs">
       <DependentUpon>DebugWindow.xaml</DependentUpon>
     </Compile>
@@ -49,12 +53,17 @@
       <DependentUpon>DebugDevicesControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\ControlMonitor.cs" />
+    <Compile Include="ViewModel\Device2DAxisViewModel.cs" />
     <Compile Include="ViewModel\DeviceMonitor.cs" />
     <Compile Include="ViewModel\DevicesManager.cs" />
     <Compile Include="ViewModel\Extensions.cs" />
     <Compile Include="ViewModel\NotifyPropertyChanged.cs" />
     <Compile Include="ViewModel\StatusMessage.cs" />
     <Compile Include="ViewModel\Workspace.cs" />
+    <Page Include="Controls\Device2DAxisView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\JoystickMappers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

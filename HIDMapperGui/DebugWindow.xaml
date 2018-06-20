@@ -1,10 +1,8 @@
 ﻿<Window x:Class="HIDMapperGui.DebugWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local ="clr-namespace:HIDMapperGui"
-        xmlns:localControls ="clr-namespace:HIDMapperGui.Controls"
-        xmlns:localViewModel ="clr-namespace:HIDMapperGui.ViewModel"
-        DataContext="{x:Static localViewModel:Workspace.Instance}"
+        xmlns:local="clr-namespace:HIDMapperGui"
+        xmlns:localControls="clr-namespace:HIDMapperGui.Controls"
         Title="Joystick Mapper Debug Window" Height="600" Width="1200">
   <TabControl>
     <TabItem Header="Diagnostics">
@@ -12,6 +10,7 @@
         <StackPanel DockPanel.Dock="Left">
           <Button IsEnabled="{Binding DevicesManager.NotRunning}" Click="Start_Click">Start</Button>
           <Button IsEnabled="{Binding DevicesManager.Running}" Click="Stop_Click">Stop</Button>
+          <Button Click="EnableMapping_Click">Enable Mapping</Button>
         </StackPanel>
         <local:DebugDevicesControl DevicesManager="{Binding DevicesManager}"/>
       </DockPanel>

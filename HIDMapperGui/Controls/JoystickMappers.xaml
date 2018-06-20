@@ -16,7 +16,7 @@
     <TabControl.ContentTemplate>
       <DataTemplate>
         <DockPanel LastChildFill="True">
-          <DataGrid DockPanel.Dock="Left" x:Name="theGrid" AutoGenerateColumns="True" IsReadOnly="True" AutoGeneratingColumn="dg_AutoGeneratingColumn" ItemsSource="{Binding Controls}"/>
+          <local:Device2DAxisView DeviceMonitor="{Binding}"/>
         </DockPanel>
       </DataTemplate>
     </TabControl.ContentTemplate>

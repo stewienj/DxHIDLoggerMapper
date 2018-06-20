@@ -29,6 +29,7 @@ namespace HIDMapperDLL {
     _guidToLogger = new std::map<const GUID, MapperBase*>();
     _joystickNo = 0;
     _keyboardMonitoringEnabled = true;
+    _suppressMapping = false;
   }
 
   // Finalizer cleans up unmanaged resources.
