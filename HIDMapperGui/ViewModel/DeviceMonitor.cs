@@ -13,10 +13,13 @@ namespace HIDMapperGui
   {
     private ObservableCollection<ControlMonitor> _controls = new ObservableCollection<ControlMonitor>();
     private Dictionary<string, ControlMonitor> _nameToControlMonitor = new Dictionary<string, ControlMonitor>();
+    private HIDMapperInterface _mapper;
 
-    public DeviceMonitor(string deviceName, DeviceType deviceType)
+    public DeviceMonitor(string deviceName, DeviceType deviceType, Guid guid, HIDMapperInterface mapper)
     {
       DeviceName = deviceName;
+      DeviceGuid = guid;
+      _mapper = mapper;
     }
 
     public void UpdateControl(string controlName, int state, int previousState)
@@ -50,12 +53,19 @@ namespace HIDMapperGui
       return DeviceName;
     }
 
+    public MapperJoystickToKeyboardConfig MapperConfig => _mapper.GetMapperConfig(DeviceGuid);
+
     public string DeviceName
     {
       get;
       private set;
     }
 
+    public Guid DeviceGuid
+    {
+      get;
+      private set;
+    }
 
     public ObservableCollection<ControlMonitor> Controls
     {

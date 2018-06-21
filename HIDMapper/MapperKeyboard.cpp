@@ -3,7 +3,7 @@
 #include <tchar.h>
 #include <strsafe.h>
 
-MapperKeyboard::MapperKeyboard(HIDMapperDLL::HIDMapperInterface^ loggerInterface) : HIDMapper(HIDMapperDLL::DeviceType::Keyboard, 0, loggerInterface) {
+MapperKeyboard::MapperKeyboard(GUID deviceGuid, HIDMapperDLL::HIDMapperInterface^ loggerInterface) : HIDMapper(HIDMapperDLL::DeviceType::Keyboard, deviceGuid, loggerInterface) {
 }
 
 HRESULT MapperKeyboard::GetInputState(DWORD size, void* newState) {

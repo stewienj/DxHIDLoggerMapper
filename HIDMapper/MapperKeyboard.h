@@ -8,7 +8,7 @@ struct DIKBSTATE {
 class MapperKeyboard : public HIDMapper<DIKBSTATE>
 {
 public:
-  MapperKeyboard(HIDMapperDLL::HIDMapperInterface^ loggerInterface);
+  MapperKeyboard(GUID deviceGuid, HIDMapperDLL::HIDMapperInterface^ loggerInterface);
   void Log(const DIKBSTATE& kbState) override;
   HRESULT GetInputState(DWORD size, void* newState) override;
 };

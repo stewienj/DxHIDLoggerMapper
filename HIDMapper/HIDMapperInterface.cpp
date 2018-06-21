@@ -26,8 +26,7 @@ inline bool operator<(const GUID & lhs, const GUID & rhs) {
 
 namespace HIDMapperDLL {
   HIDMapperInterface::HIDMapperInterface(void) {
-    _guidToLogger = new std::map<const GUID, MapperBase*>();
-    _joystickNo = 0;
+    _guidToMapper = new std::map<const GUID, MapperBase*>();
     _keyboardMonitoringEnabled = true;
     _suppressMapping = false;
   }
@@ -36,7 +35,7 @@ namespace HIDMapperDLL {
   // Destructor or garbage collector will
   // clean up managed resources
   HIDMapperInterface::!HIDMapperInterface(void) {
-    delete _guidToLogger;
+    delete _guidToMapper;
   }
 
   // Destructor cleans up all resources, called explicily, suppresses finalizer
@@ -176,30 +175,31 @@ namespace HIDMapperDLL {
 
   void HIDMapperInterface::CheckDeviceIsMonitored(const DIDEVICEINSTANCE* pdidInstance) {
 
-    auto foundLogger = _guidToLogger->find(pdidInstance->guidInstance);
+    auto foundLogger = _guidToMapper->find(pdidInstance->guidInstance);
 
-    if (foundLogger != _guidToLogger->end()) {
+    if (foundLogger != _guidToMapper->end()) {
+      auto device = (*foundLogger).second;
+      FireDeviceChanged(device->GetDeviceName(), device->GetDeviceType(), device->GetDeviceGuid(), DeviceInfo::InfoType::Checked);
 
-      FireDeviceChanged((*foundLogger).second->GetDeviceName(), (*foundLogger).second->GetDeviceType(), DeviceInfo::InfoType::Checked);
-
-    } else {
+    }
+    else {
 
       // Create a new device and add a logger for it
       LPDIRECTINPUTDEVICE8 pDevice = NULL;
-	  MapperBase* logger = NULL;
+      MapperBase* logger = NULL;
 
       switch (pdidInstance->dwDevType & 0xFF) {
       case DI8DEVTYPE_MOUSE:
         if (pdidInstance->guidInstance == GUID_SysMouse) {
           if ((pDevice = CreateMouseDevice(pdidInstance->guidInstance)) != NULL) {
-            logger = new MapperMouse(this);
+            logger = new MapperMouse(pdidInstance->guidInstance, this);
           }
         }
         break;
       case DI8DEVTYPE_KEYBOARD:
         if (pdidInstance->guidInstance == GUID_SysKeyboard && _keyboardMonitoringEnabled) {
           if ((pDevice = CreateKeyboardDevice(pdidInstance->guidInstance)) != NULL) {
-            logger = new MapperKeyboard(this);
+            logger = new MapperKeyboard(pdidInstance->guidInstance, this);
           }
         }
         break;
@@ -208,9 +208,8 @@ namespace HIDMapperDLL {
       case DI8DEVTYPE_DRIVING:
       case DI8DEVTYPE_FLIGHT:
       case DI8DEVTYPE_1STPERSON:
-        _joystickNo++;
         if ((pDevice = CreateJoystickDevice(pdidInstance->guidInstance)) != NULL) {
-          logger = new MapperJoystickToKeyboard(_joystickNo, this);
+          logger = new MapperJoystickToKeyboard(pdidInstance->guidInstance, this);
         }
         break;
       }
@@ -219,8 +218,8 @@ namespace HIDMapperDLL {
       // an event signalling a new logger was create, and start the logger.
       if (logger != NULL) {
         logger->SetDevice(pDevice);
-        (*_guidToLogger)[pdidInstance->guidInstance] = logger;
-        FireDeviceChanged(logger->GetDeviceName(), logger->GetDeviceType(), DeviceInfo::InfoType::Added);
+        (*_guidToMapper)[pdidInstance->guidInstance] = logger;
+        FireDeviceChanged(logger->GetDeviceName(), logger->GetDeviceType(), logger->GetDeviceGuid(), DeviceInfo::InfoType::Added);
         logger->Start();
       }
     }
@@ -253,15 +252,15 @@ namespace HIDMapperDLL {
 
         // Remove logger for any removed devices
         std::vector<std::pair<const GUID, MapperBase*>> loggerToRemove;
-        for (std::pair<const GUID, MapperBase*> logger : *_guidToLogger) {
+        for (std::pair<const GUID, MapperBase*> logger : *_guidToMapper) {
           if (logger.second->UIThreadCheckIsValid() != S_OK) {
             loggerToRemove.push_back(logger);
           }
         }
         for (std::pair<const GUID, MapperBase*> logger : loggerToRemove) {
-          _guidToLogger->erase(logger.first);
+          _guidToMapper->erase(logger.first);
           logger.second->Stop();
-          FireDeviceChanged(logger.second->GetDeviceName(), logger.second->GetDeviceType(), DeviceInfo::InfoType::Removed);
+          FireDeviceChanged(logger.second->GetDeviceName(), logger.second->GetDeviceType(), logger.second->GetDeviceGuid(), DeviceInfo::InfoType::Removed);
           delete logger.second;
         }
 
@@ -294,7 +293,7 @@ namespace HIDMapperDLL {
 
   static DIJOYSTATE2 g_nothingState;
   const DIJOYSTATE2& HIDMapperInterface::GetJoystickState() {
-    for (std::pair<const GUID, MapperBase*> logger : *_guidToLogger) {
+    for (std::pair<const GUID, MapperBase*> logger : *_guidToMapper) {
       MapperJoystick* joyLogger = dynamic_cast<MapperJoystick*>(logger.second);
       if (joyLogger != NULL) {
         return joyLogger->GetLastState();
@@ -310,25 +309,25 @@ namespace HIDMapperDLL {
     }
   }
 
-  void HIDMapperInterface::FireDeviceChanged(const TCHAR* deviceName, HIDMapperDLL::DeviceType deviceType, DeviceInfo::InfoType action) {
+  void HIDMapperInterface::FireDeviceChanged(const TCHAR* deviceName, HIDMapperDLL::DeviceType deviceType, GUID deviceGuid, DeviceInfo::InfoType action) {
     try {
-      DeviceChanged(this, gcnew DeviceInfo(deviceName, deviceType, action));
+      DeviceChanged(this, gcnew DeviceInfo(deviceName, deviceType, deviceGuid, action));
     } catch (...) {
 
     }
   }
 
-  void HIDMapperInterface::Error(TCHAR* deviceName, HIDMapperDLL::DeviceType deviceType, String^ message) {
+  void HIDMapperInterface::Error(TCHAR* deviceName, HIDMapperDLL::DeviceType deviceType, GUID deviceGuid, String^ message) {
     try {
-      DeviceChanged(this, gcnew DeviceInfoError(deviceName, deviceType, message));
+      DeviceChanged(this, gcnew DeviceInfoError(deviceName, deviceType, deviceGuid, message));
     } catch (...) {
 
     }
   }
 
-  void HIDMapperInterface::OnHIDStateChanged(TCHAR* device, DeviceType deviceType, TCHAR* control, long state, long previousState) {
+  void HIDMapperInterface::OnHIDStateChanged(TCHAR* device, DeviceType deviceType, GUID deviceGuid, TCHAR* control, long state, long previousState) {
     try {
-		HIDStateChanged(this, gcnew HIDStateChangeArgs(device, deviceType, control, state, previousState));
+		HIDStateChanged(this, gcnew HIDStateChangeArgs(device, deviceType, deviceGuid, control, state, previousState));
     } catch (...) {
 
     }
@@ -344,14 +343,34 @@ namespace HIDMapperDLL {
     }
 
     // Stop all the loggers and clean up the devices
-    for (std::pair<const GUID, MapperBase*> logger : *_guidToLogger) {
+    for (std::pair<const GUID, MapperBase*> logger : *_guidToMapper) {
       logger.second->Stop();
       delete logger.second;
     }
-    _guidToLogger->clear();
+    _guidToMapper->clear();
 
     // Disconnect from direct input
     FreeDirectInput();
+  }
+
+  MapperJoystickToKeyboardConfig^ HIDMapperInterface::GetMapperConfig(Guid deviceGuid)
+  {
+    array<Byte>^ guidData = deviceGuid.ToByteArray();
+    pin_ptr<Byte> data = &(guidData[0]);
+
+    GUID guid =  *(_GUID *)data;
+
+    auto foundLogger = _guidToMapper->find(guid);
+
+    if (foundLogger != _guidToMapper->end()) {
+      auto mapper = dynamic_cast<MapperJoystickToKeyboard*>((*foundLogger).second);
+      if (mapper != nullptr)
+      {
+        return mapper->GetMapperConfig();
+      }
+   }
+
+    return nullptr;
   }
 
   //-----------------------------------------------------------------------------

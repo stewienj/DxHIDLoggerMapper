@@ -18,7 +18,7 @@ private:
   bool _keepRunning;
   bool _deviceLost;
   HIDMapperDLL::DeviceType _deviceType;
-  int _deviceNo;
+  GUID _deviceGuid;
   WCHAR _deviceName[MAX_PATH];
   LPDIRECTINPUTDEVICE8 _pDevice;
 
@@ -36,13 +36,14 @@ protected:
   void NotifyStateChangeButton(TCHAR* controlID, LONG state, LONG previousState);
   void NotifyStateChangeAxis(TCHAR* controlID, LONG state, LONG previousState);
 public:
-  MapperBase(HIDMapperDLL::DeviceType deviceType, int deviceNo, HIDMapperDLL::HIDMapperInterface^ loggerInterface);
+  MapperBase(HIDMapperDLL::DeviceType deviceType, GUID deviceGuid, HIDMapperDLL::HIDMapperInterface^ loggerInterface);
   virtual ~MapperBase(void);
   void Start();
   void Stop();
   void SetDevice(LPDIRECTINPUTDEVICE8 device);
   const WCHAR* GetDeviceName() { return _deviceName; }
   const HIDMapperDLL::DeviceType GetDeviceType() { return _deviceType; }
+  const GUID GetDeviceGuid() { return _deviceGuid; }
   HRESULT UIThreadCheckIsValid();
 };
 
@@ -51,7 +52,7 @@ class HIDMapper : public MapperBase {
 protected:
   T _lastState;
 public:
-	HIDMapper(HIDMapperDLL::DeviceType deviceType, int deviceNo, HIDMapperDLL::HIDMapperInterface^ loggerInterface) : MapperBase(deviceType, deviceNo, loggerInterface) {
+	HIDMapper(HIDMapperDLL::DeviceType deviceType, GUID deviceGuid, HIDMapperDLL::HIDMapperInterface^ loggerInterface) : MapperBase(deviceType, deviceGuid, loggerInterface) {
     _lastState = { 0 };
   }
   virtual void Log(const T& deviceState) = 0;

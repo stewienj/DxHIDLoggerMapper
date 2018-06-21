@@ -5,7 +5,7 @@ class MapperMouse : public HIDMapper<DIMOUSESTATE2>
 {
 
 public:
-  MapperMouse(HIDMapperDLL::HIDMapperInterface^ loggerInterface);
+  MapperMouse(GUID deviceGuid, HIDMapperDLL::HIDMapperInterface^ loggerInterface);
   void Log(const DIMOUSESTATE2& mouseState) override;
 };
 

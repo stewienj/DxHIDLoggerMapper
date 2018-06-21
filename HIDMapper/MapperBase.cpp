@@ -6,7 +6,7 @@
 #define SAFE_DELETE(p)  { if(p) { delete (p);     (p)=NULL; } }
 #define SAFE_RELEASE(p) { if(p) { (p)->Release(); (p)=NULL; } }
 
-MapperBase::MapperBase(HIDMapperDLL::DeviceType deviceType, int deviceNo, HIDMapperDLL::HIDMapperInterface^ loggerInterface) {
+MapperBase::MapperBase(HIDMapperDLL::DeviceType deviceType, GUID deviceGuid, HIDMapperDLL::HIDMapperInterface^ loggerInterface) {
   _loggerInterface = loggerInterface;
   // initialize class variables
   _canExit = true;
@@ -14,7 +14,7 @@ MapperBase::MapperBase(HIDMapperDLL::DeviceType deviceType, int deviceNo, HIDMap
   _pDevice = NULL;
   _deviceLost = false;
   _deviceType = deviceType;
-  _deviceNo = deviceNo;
+  _deviceGuid = deviceGuid;
 }
 
 MapperBase::~MapperBase(void) {
@@ -71,13 +71,13 @@ HRESULT MapperBase::UIThreadCheckIsValid() {
 
 void MapperBase::NotifyStateChangeButton(TCHAR* controlID, LONG state, LONG previousState) {
   if (state != previousState && state != -1) {
-	_loggerInterface->OnHIDStateChanged(_deviceName, _deviceType, controlID, state, previousState);
+	_loggerInterface->OnHIDStateChanged(_deviceName, _deviceType, _deviceGuid, controlID, state, previousState);
   }
 }
 
 void MapperBase::NotifyStateChangeAxis(TCHAR* controlID, LONG state, LONG previousState) {
   if (state != previousState && state != -1) {
-    _loggerInterface->OnHIDStateChanged(_deviceName, _deviceType, controlID, state, previousState);
+    _loggerInterface->OnHIDStateChanged(_deviceName, _deviceType, _deviceGuid, controlID, state, previousState);
   }
 }
 

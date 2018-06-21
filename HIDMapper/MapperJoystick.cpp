@@ -2,7 +2,7 @@
 #include <tchar.h>
 #include <strsafe.h>
 
-MapperJoystick::MapperJoystick(int deviceNo, HIDMapperDLL::HIDMapperInterface^ loggerInterface) : HIDMapper(HIDMapperDLL::DeviceType::Joystick, deviceNo, loggerInterface) {
+MapperJoystick::MapperJoystick(GUID deviceGuid, HIDMapperDLL::HIDMapperInterface^ loggerInterface) : HIDMapper(HIDMapperDLL::DeviceType::Joystick, deviceGuid, loggerInterface) {
 }
 
 void MapperJoystick::Log(const DIJOYSTATE2& joyState)

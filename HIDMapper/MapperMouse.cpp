@@ -2,7 +2,7 @@
 #include <tchar.h>
 #include <strsafe.h>
 
-MapperMouse::MapperMouse(HIDMapperDLL::HIDMapperInterface^ loggerInterface) : HIDMapper(HIDMapperDLL::DeviceType::Mouse, 0, loggerInterface) {
+MapperMouse::MapperMouse(GUID deviceGuid, HIDMapperDLL::HIDMapperInterface^ loggerInterface) : HIDMapper(HIDMapperDLL::DeviceType::Mouse, deviceGuid, loggerInterface) {
 }
 
 void MapperMouse::Log(const DIMOUSESTATE2& mouseState) {

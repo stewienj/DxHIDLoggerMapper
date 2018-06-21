@@ -1,7 +1,6 @@
 #pragma once
 
 #include "MapperJoystick.h"
-//#include "MapperJoystickToKeyboardConfig.h"
 
 namespace HIDMapperDLL
 {
@@ -17,8 +16,9 @@ private:
   int _keyActivatedCount[KEY_COUNT];
   gcroot<HIDMapperDLL::MapperJoystickToKeyboardConfig^> _config;
 public:
-  MapperJoystickToKeyboard(int deviceNo, HIDMapperDLL::HIDMapperInterface^ loggerInterface);
+  MapperJoystickToKeyboard(GUID deviceGuid, HIDMapperDLL::HIDMapperInterface^ loggerInterface);
 	void Log(const DIJOYSTATE2& joyState) override;
+  HIDMapperDLL::MapperJoystickToKeyboardConfig^ GetMapperConfig();
 protected:
   void CheckAxis(int current, int previous, int threshold, int key);
   static void KeyDown(int scanCode);

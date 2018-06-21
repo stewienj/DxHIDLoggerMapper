@@ -8,13 +8,14 @@ using namespace System::Threading::Tasks;
 class MapperBase;
 
 namespace HIDMapperDLL {
+  ref class MapperJoystickToKeyboardConfig;
+
   public ref class HIDMapperInterface {
   private:
     bool _stopMonitoring;
     LPDIRECTINPUT8 _pDI;
     Task^ _deviceMonitoringTask;
-    std::map<const GUID, MapperBase*>* _guidToLogger;
-    int _joystickNo;
+    std::map<const GUID, MapperBase*>* _guidToMapper;
     bool _keyboardMonitoringEnabled;
     bool _suppressMapping;
 
@@ -25,7 +26,7 @@ namespace HIDMapperDLL {
     void MonitorDevices();
     HRESULT InitDirectInput();
     void FreeDirectInput();
-    void FireDeviceChanged(const TCHAR* deviceName, HIDMapperDLL::DeviceType deviceType, DeviceInfo::InfoType action);
+    void FireDeviceChanged(const TCHAR* deviceName, HIDMapperDLL::DeviceType deviceType, GUID deviceGuid, DeviceInfo::InfoType action);
     void FireStartedOrStopped(StartStopStatus::StartStopType startedOrStopped);
 
     static CLimitSingleInstance* g_SingleInstanceObj = new CLimitSingleInstance(TEXT("Global\\{E5CF13DB-AEB5-43F9-ADB3-773A4A675A82}"));
@@ -58,10 +59,12 @@ namespace HIDMapperDLL {
       }
     }
 
-    void OnHIDStateChanged(TCHAR* device, DeviceType deviceType, TCHAR* control, long state, long previousState);
+    void OnHIDStateChanged(TCHAR* device, DeviceType deviceType, GUID deviceGuid, TCHAR* control, long state, long previousState);
     const DIJOYSTATE2& GetJoystickState();
     static bool OtherInstanceRunning();
-    void Error(TCHAR* deviceName, HIDMapperDLL::DeviceType deviceType, String^ message);
+    void Error(TCHAR* deviceName, HIDMapperDLL::DeviceType deviceType, GUID deviceGuid, String^ message);
+
+    MapperJoystickToKeyboardConfig^ GetMapperConfig(Guid deviceGuid);
 
     event EventHandler<HIDStateChangeArgs^>^ HIDStateChanged;
     event EventHandler<DeviceInfo^>^ DeviceChanged;

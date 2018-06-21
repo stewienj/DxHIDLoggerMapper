@@ -82,12 +82,12 @@ namespace HIDMapperGui
       actionThread.Start();
     }
 
-    private DeviceMonitor AddOrGetDevice(string deviceName, DeviceType deviceType)
+    private DeviceMonitor AddOrGetDevice(string deviceName, DeviceType deviceType, Guid deviceGuid)
     {
       DeviceMonitor deviceMonitor = null;
       if (!_nameToDeviceMonitor.TryGetValue(deviceName, out deviceMonitor))
       {
-        deviceMonitor = new DeviceMonitor(deviceName, deviceType);
+        deviceMonitor = new DeviceMonitor(deviceName, deviceType, deviceGuid, _mapper);
         _nameToDeviceMonitor.Add(deviceName, deviceMonitor);
         Devices.Add(deviceMonitor);
         switch (deviceType)
@@ -114,7 +114,7 @@ namespace HIDMapperGui
     {
       _actionQueue.Add(new Action(() =>
       {
-        DeviceMonitor deviceMonitor = AddOrGetDevice(e.Device, e.DeviceType);
+        DeviceMonitor deviceMonitor = AddOrGetDevice(e.Device, e.DeviceType, e.DeviceGuid);
         deviceMonitor.UpdateControl(e.Control, e.State, e.PreviousState);
         OnControlStateChanged(e);
       }));
@@ -129,14 +129,14 @@ namespace HIDMapperGui
           action = () =>
           {
             AddMessage(new StatusMessage(e.Device, "Added"));
-            AddOrGetDevice(e.Device, e.DeviceType);
+            AddOrGetDevice(e.Device, e.DeviceType, e.DeviceGuid);
           };
           break;
         case DeviceInfo.InfoType.Checked:
           action = () =>
           {
             AddMessage(new StatusMessage(e.Device, "Checked"));
-            AddOrGetDevice(e.Device, e.DeviceType);
+            AddOrGetDevice(e.Device, e.DeviceType, e.DeviceGuid);
           };
           break;
         case DeviceInfo.InfoType.Error:

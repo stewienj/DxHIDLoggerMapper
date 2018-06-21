@@ -5,8 +5,8 @@
 #include <strsafe.h>
 #include <Windows.h>
 
-MapperJoystickToKeyboard::MapperJoystickToKeyboard(int deviceNo, HIDMapperDLL::HIDMapperInterface^ loggerInterface) 
-  : MapperJoystick(deviceNo, loggerInterface) 
+MapperJoystickToKeyboard::MapperJoystickToKeyboard(GUID deviceGuid, HIDMapperDLL::HIDMapperInterface^ loggerInterface) 
+  : MapperJoystick(deviceGuid, loggerInterface)
 {
   memset(_keyActivatedCount, 0, sizeof(_keyActivatedCount));
   _config = gcnew HIDMapperDLL::MapperJoystickToKeyboardConfig();
@@ -141,5 +141,10 @@ void MapperJoystickToKeyboard::KeyUp(int scanCode)
   inputData.ki.wScan = scanCode;
   inputData.ki.dwFlags = KEYEVENTF_KEYUP | KEYEVENTF_SCANCODE;
   SendInput(1, &inputData, sizeof(INPUT));
+}
+
+HIDMapperDLL::MapperJoystickToKeyboardConfig^ MapperJoystickToKeyboard::GetMapperConfig()
+{
+  return _config; 
 }
 

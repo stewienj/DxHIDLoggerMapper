@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=ViewModel}">
     <Canvas 
-      Background="Yellow" 
+      Background="Cornsilk" 
       local:SizeObserver.Observe="True"
       local:SizeObserver.ObservedWidth="{Binding WidthFromCanvas, Mode=OneWayToSource}"
       local:SizeObserver.ObservedHeight="{Binding HeightFromCanvas, Mode=OneWayToSource}">
@@ -17,7 +17,25 @@
         Canvas.Top="{Binding DevicePositionTop}"
         Canvas.Left="{Binding DevicePositionLeft}"
         Width="{Binding DevicePositionWidth}"
-        Height="{Binding DevicePositionHeight}"/>
+        Height="{Binding DevicePositionHeight}"
+        />
+
+      <Rectangle
+        Stroke="Black"
+        Canvas.Top="{Binding InnerRangeTop}"
+        Canvas.Left="{Binding InnerRangeLeft}"
+        Width="{Binding InnerRangeWidth}"
+        Height="{Binding InnerRangeHeight}"
+        />
+
+      <Rectangle
+        Stroke="Black"
+        Canvas.Top="{Binding OuterRangeTop}"
+        Canvas.Left="{Binding OuterRangeLeft}"
+        Width="{Binding OuterRangeWidth}"
+        Height="{Binding OuterRangeHeight}"
+        />
+
     </Canvas>
   </Grid>
 </UserControl>

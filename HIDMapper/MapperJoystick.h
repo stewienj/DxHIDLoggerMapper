@@ -5,7 +5,7 @@
 class MapperJoystick : public HIDMapper<DIJOYSTATE2>
 {
 public:
-  MapperJoystick(int deviceNo, HIDMapperDLL::HIDMapperInterface^ loggerInterface);
+  MapperJoystick(GUID deviceGuid, HIDMapperDLL::HIDMapperInterface^ loggerInterface);
 	void Log(const DIJOYSTATE2& joyState) override;
 };
 

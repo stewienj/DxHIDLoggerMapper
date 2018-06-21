@@ -1,5 +1,6 @@
 #pragma once
 
+#include <windows.h> 
 #include <tchar.h>
 using namespace System;
 
@@ -15,27 +16,30 @@ namespace HIDMapperDLL {
 
   public ref class HIDStateChangeArgs : public EventArgs {
   public:
-    HIDStateChangeArgs(TCHAR* device, DeviceType deviceType, TCHAR* control, int state, int previousState);
+    HIDStateChangeArgs(TCHAR* device, DeviceType deviceType, GUID deviceGuid, TCHAR* control, int state, int previousState);
     String^ Device;
     String^ Control;
     DeviceType DeviceType;
+    Guid DeviceGuid;
     int State;
     int PreviousState;
+
   };
 
   public ref class DeviceInfo : public EventArgs {
   public:
     enum class InfoType {Added, Removed, Checked, Updated, Error};
-    DeviceInfo(const TCHAR* device, DeviceType deviceType, DeviceInfo::InfoType infoAction);
+    DeviceInfo(const TCHAR* device, DeviceType deviceType, GUID deviceGuid, DeviceInfo::InfoType infoAction);
     ~DeviceInfo();
     InfoType InfoAction;
     String^ Device;
     DeviceType DeviceType;
+    Guid DeviceGuid;
   };
 
   public ref class DeviceInfoError : public DeviceInfo {
   public:
-    DeviceInfoError(const TCHAR* device, HIDMapperDLL::DeviceType deviceType, String^ message);
+    DeviceInfoError(const TCHAR* device, HIDMapperDLL::DeviceType deviceType, GUID deviceGuid, String^ message);
     ~DeviceInfoError();
     String^ ErrorMessage;
   };
