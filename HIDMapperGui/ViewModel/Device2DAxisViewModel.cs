@@ -10,10 +10,10 @@ namespace HIDMapperGui.ViewModel
 {
   public class Device2DAxisViewModel : NotifyPropertyChanged
   {
-    private const double _xAxisMax = 1000;
-    private const double _xAxisMin = -1000;
-    private const double _yAxisMax = 1000;
-    private const double _yAxisMin = -1000;
+    private const double _xAxisMax = 1001;
+    private const double _xAxisMin = -1001;
+    private const double _yAxisMax = 1001;
+    private const double _yAxisMin = -1001;
 
     /// <summary>
     /// Device X position normalized to between -1.0 and 1.0
