@@ -21,10 +21,28 @@ namespace HIDMapperGui
   /// </summary>
   public partial class MainWindow : Window
   {
+    private Workspace _workspace = new Workspace(true);
     public MainWindow()
     {
-      this.DataContext = new Workspace();
+      this.Loaded += MainWindow_Loaded;
+      this.Closing += MainWindow_Closing;
+      this.DataContext = _workspace;
       InitializeComponent();
     }
+
+    void MainWindow_Loaded(object sender, RoutedEventArgs e)
+    {
+      if (!_workspace.DevicesManager.Running)
+      {
+        _workspace.DevicesManager.Start();
+      }
+      _workspace.DevicesManager.EnableMapping();
+    }
+
+    void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+    {
+      _workspace.DevicesManager.Stop();
+    }
+
   }
 }

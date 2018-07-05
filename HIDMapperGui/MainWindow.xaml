@@ -3,14 +3,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:localControls="clr-namespace:HIDMapperGui.Controls"
         mc:Ignorable="d"
         Title="{Binding Title}" Height="450" Width="800">
-  <Grid>
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition/>
-    </Grid.ColumnDefinitions>
-    <Grid.RowDefinitions>
-      <RowDefinition/>
-    </Grid.RowDefinitions>
-  </Grid>
+  <TabControl>
+    <TabItem Header="Main Interface">
+      <localControls:JoystickMappers DevicesManager="{Binding DevicesManager}" />
+    </TabItem>
+  </TabControl>
 </Window>

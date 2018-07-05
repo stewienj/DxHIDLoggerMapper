@@ -13,5 +13,15 @@ namespace HIDMapperGui
     /// </summary>
     public partial class App : Application
     {
+
+    private void Application_Startup(object sender, StartupEventArgs e)
+    {
+#if DEBUG
+      MainWindow = new DebugWindow();
+#else
+      MainWindow = new MainWindow();
+#endif
+      MainWindow.Show();
     }
+  }
 }

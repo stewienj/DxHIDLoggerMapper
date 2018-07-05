@@ -7,18 +7,36 @@
              xmlns:localViewModel="clr-namespace:HIDMapperGui.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-  <TabControl x:Name="_joystickTabs" DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DevicesManager}" ItemsSource="{Binding JoystickDevices}">
-    <TabControl.ItemTemplate>
-      <DataTemplate>
-        <TextBlock Text="{Binding DeviceName}"/>
-      </DataTemplate>
-    </TabControl.ItemTemplate>
-    <TabControl.ContentTemplate>
-      <DataTemplate>
-        <DockPanel LastChildFill="True">
-          <local:Device2DAxisView DeviceMonitor="{Binding}"/>
-        </DockPanel>
-      </DataTemplate>
-    </TabControl.ContentTemplate>
-  </TabControl>
+  <DockPanel LastChildFill="True">
+    <GroupBox Header="Instructions" DockPanel.Dock="Top" Background="MistyRose">
+      <TextBlock TextWrapping="Wrap">
+        This app maps the joystick axis and the joystick buttons to keyboard keys. You can use this app with
+        multiple joysticks or controllers. The default configuration for this app works with the Fortnite game
+        from Epic Games. For this the mapping is as follows: X axis = A (left) and D (right), Y axis = W (forward) and
+        S (back). If you move the joystick to full deflection the it also maps to the Left Shift key (run). Button 1 
+        = Space (jump), Button 2 = Left Control (crouch), Button 3 = E (use item), Button 4 = G (toggle between build
+        and weapon). If you move the joystick around you can see where it hits the thresholds for key activation below.
+        The outer square is where it presses the left shift key, and the inner square is where it presses W, A, S or D.
+        <LineBreak/>
+        <LineBreak/>
+        If there is enough interest in this app, then I'll add the ability to configure the mappings, add mappings to a
+        sequence of keys rather than just 1 key, and add mappings from mouse buttons and keyboard keys to sequences of
+        keyboard presses.
+      </TextBlock>
+    </GroupBox>
+    <TabControl x:Name="_joystickTabs" DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DevicesManager}" ItemsSource="{Binding JoystickDevices}">
+      <TabControl.ItemTemplate>
+        <DataTemplate>
+          <TextBlock Text="{Binding DeviceName}"/>
+        </DataTemplate>
+      </TabControl.ItemTemplate>
+      <TabControl.ContentTemplate>
+        <DataTemplate>
+          <DockPanel LastChildFill="True">
+            <local:Device2DAxisView DeviceMonitor="{Binding}"/>
+          </DockPanel>
+        </DataTemplate>
+      </TabControl.ContentTemplate>
+    </TabControl>
+  </DockPanel>
 </UserControl>
