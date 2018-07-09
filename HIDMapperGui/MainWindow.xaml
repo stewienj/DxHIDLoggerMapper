@@ -5,10 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:localControls="clr-namespace:HIDMapperGui.Controls"
         mc:Ignorable="d"
-        Title="{Binding Title}" Height="450" Width="800">
-  <TabControl>
-    <TabItem Header="Main Interface">
+        Title="{Binding Title}" Height="700" Width="800">
       <localControls:JoystickMappers DevicesManager="{Binding DevicesManager}" />
-    </TabItem>
-  </TabControl>
 </Window>

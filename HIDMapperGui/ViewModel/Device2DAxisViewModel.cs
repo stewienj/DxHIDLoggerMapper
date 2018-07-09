@@ -176,6 +176,16 @@ namespace HIDMapperGui.ViewModel
       get; private set;
     }
 
+    public double CentreX
+    {
+      get; private set;
+    }
+
+    public double CentreY
+    {
+      get; private set;
+    }
+
     private void CalculateDevicePositionIndicator()
     {
       // -ve Y is up for joysticks
@@ -200,6 +210,9 @@ namespace HIDMapperGui.ViewModel
         DevicePositionLeft = WidthFromCanvas * 0.5 * (1 + _normalizedPositionX);
         DevicePositionWidth = WidthFromCanvas * 0.5 * (-_normalizedPositionX);
       }
+
+      CentreX = WidthFromCanvas * 0.5;
+      CentreY = HeightFromCanvas * 0.5;
     }
 
     private void CalculateInnerOuterThresholds()

@@ -7,11 +7,31 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=ViewModel}">
-    <Canvas 
-      Background="Cornsilk" 
+    <Canvas
+      Background="DarkGray"
       local:SizeObserver.Observe="True"
       local:SizeObserver.ObservedWidth="{Binding WidthFromCanvas, Mode=OneWayToSource}"
       local:SizeObserver.ObservedHeight="{Binding HeightFromCanvas, Mode=OneWayToSource}">
+
+      <Line
+        Stroke="Black"
+        X1="0"
+        X2="{Binding WidthFromCanvas}"
+        Y1="{Binding CentreY}"
+        Y2="{Binding CentreY}"
+        StrokeThickness="1"
+        />
+
+      <Line
+        Stroke="Black"
+        X1="{Binding CentreX}"
+        X2="{Binding CentreX}"
+        Y1="{Binding HeightFromCanvas}"
+        Y2="0"
+        StrokeThickness="1"
+        />
+
+
       <Rectangle 
         Fill="Red" 
         Canvas.Top="{Binding DevicePositionTop}"
@@ -21,7 +41,7 @@
         />
 
       <Rectangle
-        Stroke="Black"
+        Stroke="Yellow"
         Canvas.Top="{Binding InnerRangeTop}"
         Canvas.Left="{Binding InnerRangeLeft}"
         Width="{Binding InnerRangeWidth}"
@@ -29,7 +49,7 @@
         />
 
       <Rectangle
-        Stroke="Black"
+        Stroke="Yellow"
         Canvas.Top="{Binding OuterRangeTop}"
         Canvas.Left="{Binding OuterRangeLeft}"
         Width="{Binding OuterRangeWidth}"

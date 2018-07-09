@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:HIDMapperGui"
         xmlns:localControls="clr-namespace:HIDMapperGui.Controls"
-        Title="Joystick Mapper Debug Window" Height="600" Width="1200">
+        Title="Joystick Mapper Debug Window" Height="700" Width="800">
   <TabControl>
     <TabItem Header="Diagnostics">
       <DockPanel LastChildFill="True">
