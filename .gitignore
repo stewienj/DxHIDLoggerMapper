@@ -5,3 +5,7 @@ packages/
 HIDLogger/HIDLoggerDLL.vcxproj.user
 HIDLoggerGui/HIDLoggerGui.csproj.user
 HIDMapperGui/HIDMapperGui.csproj.user
+JoystickMapperPackage/bin/
+JoystickMapperPackage/obj/
+JoystickMapperPackage/JoystickMapperPackage.wapproj.user
+JoystickMapperPackage/JoystickMapperPackage_TemporaryKey.pfx

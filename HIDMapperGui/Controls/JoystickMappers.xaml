@@ -42,7 +42,19 @@
         </Grid>
       </TabItem>
     </TabControl>
-    <TabControl x:Name="_joystickTabs" DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DevicesManager}" ItemsSource="{Binding JoystickDevices}">
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="1*"/>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="1*"/>
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="1*"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="1*"/>
+      </Grid.RowDefinitions>
+      <TextBlock FontSize="20" Foreground="Yellow" Grid.Column="1" Grid.Row="1" TextAlignment="Center">No Joystick Device Found</TextBlock>
+    <TabControl x:Name="_joystickTabs" DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DevicesManager}" ItemsSource="{Binding JoystickDevices}" Background="Transparent" Grid.ColumnSpan="3" Grid.RowSpan="3">
       <TabControl.ItemTemplate>
         <DataTemplate>
           <TextBlock Text="{Binding DeviceName}"/>
@@ -56,5 +68,6 @@
         </DataTemplate>
       </TabControl.ContentTemplate>
     </TabControl>
+    </Grid>
   </DockPanel>
 </UserControl>

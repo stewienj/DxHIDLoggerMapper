@@ -16,6 +16,9 @@
   <PropertyGroup>
     <StartupObject>HIDMapperGui.App</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Square150x150Logo.scale-200.ico</ApplicationIcon>
+  </PropertyGroup>
   <ImportGroup Label="PropertySheets">
     <Import Project="$(SolutionDir)\PropertySheets\CsOutputDirectories.props" Condition="exists('$(SolutionDir)\PropertySheets\CsOutputDirectories.props')" />
   </ImportGroup>
@@ -115,7 +118,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Square150x150Logo.scale-200.ico" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HIDMapper\HIDMapperDLL.vcxproj">
       <Project>{12adfaff-5487-4286-ab9f-657b4086b14e}</Project>

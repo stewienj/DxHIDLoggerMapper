@@ -16,12 +16,18 @@ namespace HIDMapperGui
 
     private void Application_Startup(object sender, StartupEventArgs e)
     {
+      this.DispatcherUnhandledException += App_DispatcherUnhandledException;
 #if DEBUG
       MainWindow = new DebugWindow();
 #else
       MainWindow = new MainWindow();
 #endif
       MainWindow.Show();
+    }
+
+    private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+    {
+      e.Handled = true;
     }
   }
 }
