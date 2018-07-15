@@ -5,3 +5,4 @@ packages/
 HIDLogger/HIDLoggerDLL.vcxproj.user
 HIDLoggerGui/HIDLoggerGui.csproj.user
 HIDMapperGui/HIDMapperGui.csproj.user
+JoystickMapperPackage/
