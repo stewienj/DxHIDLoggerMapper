@@ -1,0 +1,44 @@
+<Project>
+  <!-- 
+       If you want to debug this look at https://docs.microsoft.com/en-us/dotnet/core/project-sdk/overview
+       or dotnet msbuild -preprocess:output.xml <project file name>
+	   
+	   Here's a list of all the properties https://docs.microsoft.com/en-us/dotnet/core/project-sdk/msbuild-props
+  -->
+  <PropertyGroup>
+    <!-- Set this property to true to do a .NET Core build, or false to do a .NET Framework build -->
+    <DotNetCoreBuild>true</DotNetCoreBuild>
+  </PropertyGroup>
+  
+  <!-- Output directories for when a build is done -->
+  <PropertyGroup Condition="'$(Platform)' == 'x64'">
+    <OutDir>$(SolutionDir)Bin\$(Configuration)\</OutDir>
+    <OutputPath>$(SolutionDir)Bin\$(Configuration)\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)' != 'x64'">
+    <OutDir>$(SolutionDir)Bin\$(Configuration)_$(Platform)\</OutDir>
+    <OutputPath>$(SolutionDir)Bin\$(Configuration)_$(Platform)\</OutputPath>
+  </PropertyGroup>
+  
+  <!-- Things that apply to C# and F# -->
+  <PropertyGroup Condition="'$(UsingMicrosoftNETSdk)' == 'true'">
+    <Platforms>x64</Platforms>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <!-- Target framework selected depends on the property set above, don't set this for C++ .NET Framework -->
+    <TargetFramework Condition="'$(DotNetCoreBuild)'=='false'">net48</TargetFramework>
+    <!-- In .NET Core the TargetFramework property is used for both C# and C++/CLR -->
+    <TargetFramework Condition="'$(DotNetCoreBuild)'=='true'">net6.0-windows</TargetFramework>
+    <!-- See the bottom of https://github.com/Microsoft/msbuild/issues/1603 -->
+    <!-- Output paths - Old Style -->
+    <BaseIntermediateOutputPath>$(SolutionDir)Bin\Base\$(Platform)_$(Configuration)\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+    <IntermediateOutputPath>$(SolutionDir)Bin\Build\$(Platform)_$(Configuration)\$(MSBuildProjectName)\</IntermediateOutputPath>
+    <!-- This gets rid of MSB3270 which warns about mixing AnyCPU with x86 or x64 -->
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+  </PropertyGroup>
+
+</Project>

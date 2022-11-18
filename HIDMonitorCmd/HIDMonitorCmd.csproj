@@ -1,13 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <UseWPF>true</UseWPF>
-    <Nullable>disable</Nullable>
+    <OutputType>Exe</OutputType>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup>
     <NoWarn>MSB3277</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HIDMapper\HIDMapperDLL.vcxproj" />
+    <ProjectReference Include="..\HIDMonitor\HIDMonitorDLL.vcxproj" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns:atg="http://atg.xbox.com" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="MonitorBase.cpp" />
+    <ClCompile Include="HIDMonitorInterface.cpp" />
+    <ClCompile Include="MonitorJoystick.cpp" />
+    <ClCompile Include="MonitorKeyboard.cpp" />
+    <ClCompile Include="MonitorMouse.cpp" />
+    <ClCompile Include="HIDStateChangeArgs.cpp" />
+    <ClCompile Include="StdAfx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="LimitSingleInstance.h" />
+    <ClInclude Include="MonitorBase.h" />
+    <ClInclude Include="HIDMonitorInterface.h" />
+    <ClInclude Include="MonitorJoystick.h" />
+    <ClInclude Include="MonitorKeyboard.h" />
+    <ClInclude Include="MonitorMouse.h" />
+    <ClInclude Include="HIDStateChangeArgs.h" />
+    <ClInclude Include="StdAfx.h" />
+  </ItemGroup>
+</Project>

@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{12ADFAFF-5487-4286-AB9F-657B4086B14E}</ProjectGuid>
+    <ProjectGuid>{D17435D9-CE3F-405E-AB4F-F68EFEF5864B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -32,7 +32,6 @@
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup>
     <ClCompile>
-      <PrecompiledHeader></PrecompiledHeader>
       <AdditionalIncludeDirectories>DXUT\Core;DXUT\Optional;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -41,33 +40,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="DXUT\Optional\directx.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="MapperBase.cpp" />
-    <ClCompile Include="MapperJoystick.cpp" />
-    <ClCompile Include="MapperKeyboard.cpp" />
-    <ClCompile Include="MapperMouse.cpp" />
-    <ClCompile Include="HIDMapperInterface.cpp" />
+    <ClCompile Include="StdAfx.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="MonitorBase.cpp" />
+    <ClCompile Include="MonitorJoystick.cpp" />
+    <ClCompile Include="MonitorKeyboard.cpp" />
+    <ClCompile Include="MonitorMouse.cpp" />
+    <ClCompile Include="HIDMonitorInterface.cpp" />
     <ClCompile Include="HIDStateChangeArgs.cpp" />
-    <ClCompile Include="MapperJoystickToKeyboard.cpp" />
-    <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MapperBase.h" />
-    <ClInclude Include="MapperJoystick.h" />
-    <ClInclude Include="MapperKeyboard.h" />
-    <ClInclude Include="MapperMouse.h" />
+    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="MonitorBase.h" />
+    <ClInclude Include="MonitorJoystick.h" />
+    <ClInclude Include="MonitorKeyboard.h" />
+    <ClInclude Include="MonitorMouse.h" />
     <ClInclude Include="LimitSingleInstance.h" />
     <ClInclude Include="HIDStateChangeArgs.h" />
-    <ClInclude Include="MapperJoystickToKeyboard.h" />
-    <ClInclude Include="MapperJoystickToKeyboardConfig.h" />
-    <CLInclude Include="resource.h" />
-    <ClInclude Include="HIDMapperInterface.h" />
-    <ResourceCompile Include="HIDLogger.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Readme Standalone Mapper.txt" />
+    <ClInclude Include="HIDMonitorInterface.h" />
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>

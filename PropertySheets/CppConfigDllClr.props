@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+
+  <!-- Use this when compiling for .NET Core -->
+  <PropertyGroup Condition="'$(DotNetCoreBuild)'=='true'">
+    <CLRSupport>NetCore</CLRSupport>
+  </PropertyGroup>
+  <!-- Use this when compiling for .NET Core -->
+  <!-- This replaces all of the namespace references in the project files -->
+  <!--
+  <ItemGroup Condition="'$(DotNetCoreBuild)'=='true'">
+    <FrameworkReference Include="Microsoft.WindowsDesktop.App" />
+  </ItemGroup>
+  -->
+	<!-- For C++/CLR projects dot net framework -->
+  <PropertyGroup Condition="'$(DotNetCoreBuild)'!='true'">
+    <CLRSupport>true</CLRSupport>
+	<TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+  </PropertyGroup>
+  
+  <!-- Could move the framework references from the project files to here -->
+
+  <PropertyGroup>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>$(DefaultPlatformToolSet)</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+
+  <ItemDefinitionGroup>
+    <ClCompile>
+	  <!-- ignore some specific duplicate definition warnings -->
+      <DisableSpecificWarnings>4945;4691;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+  </ItemDefinitionGroup>
+
+  
+</Project>
