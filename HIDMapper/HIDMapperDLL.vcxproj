@@ -32,7 +32,8 @@
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup>
     <ClCompile>
-      <PrecompiledHeader></PrecompiledHeader>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <AdditionalIncludeDirectories>DXUT\Core;DXUT\Optional;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -41,9 +42,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="DXUT\Optional\directx.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="MapperBase.cpp" />
     <ClCompile Include="MapperJoystick.cpp" />
     <ClCompile Include="MapperKeyboard.cpp" />
@@ -51,7 +49,6 @@
     <ClCompile Include="HIDMapperInterface.cpp" />
     <ClCompile Include="HIDStateChangeArgs.cpp" />
     <ClCompile Include="MapperJoystickToKeyboard.cpp" />
-    <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MapperBase.h" />
@@ -62,9 +59,7 @@
     <ClInclude Include="HIDStateChangeArgs.h" />
     <ClInclude Include="MapperJoystickToKeyboard.h" />
     <ClInclude Include="MapperJoystickToKeyboardConfig.h" />
-    <CLInclude Include="resource.h" />
     <ClInclude Include="HIDMapperInterface.h" />
-    <ResourceCompile Include="HIDLogger.rc" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Readme Standalone Mapper.txt" />

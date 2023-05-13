@@ -1,18 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns:atg="http://atg.xbox.com" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{8e114980-c1a3-4ada-ad7c-83caadf5daeb}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="DXUT\Optional\directx.ico">
-      <Filter>Resource Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="winmain.cpp" />
     <ClCompile Include="MapperJoystickToKeyboard.cpp" />
     <ClCompile Include="MapperBase.cpp" />
     <ClCompile Include="HIDMapperInterface.cpp" />
@@ -31,16 +19,6 @@
     <ClInclude Include="MapperKeyboard.h" />
     <ClInclude Include="MapperMouse.h" />
     <ClInclude Include="HIDStateChangeArgs.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <CLInclude Include="resource.h">
-      <Filter>Resource Files</Filter>
-    </CLInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="HIDLogger.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Readme Standalone Mapper.txt" />

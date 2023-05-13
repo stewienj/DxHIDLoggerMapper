@@ -4,38 +4,22 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HIDMapperDLL", "HIDMapper\HIDMapperDLL.vcxproj", "{12ADFAFF-5487-4286-AB9F-657B4086B14E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HIDMapperGui", "HIDMapperGui\HIDMapperGui.csproj", "{1DA0EEDF-ADEA-4D92-BC4D-3B1C2BF16F0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HIDMapperGui", "HIDMapperGui\HIDMapperGui.csproj", "{1DA0EEDF-ADEA-4D92-BC4D-3B1C2BF16F0B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
-		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
-		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{12ADFAFF-5487-4286-AB9F-657B4086B14E}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{12ADFAFF-5487-4286-AB9F-657B4086B14E}.Debug|x64.ActiveCfg = Debug|x64
 		{12ADFAFF-5487-4286-AB9F-657B4086B14E}.Debug|x64.Build.0 = Debug|x64
-		{12ADFAFF-5487-4286-AB9F-657B4086B14E}.Debug|x86.ActiveCfg = Debug|Win32
-		{12ADFAFF-5487-4286-AB9F-657B4086B14E}.Debug|x86.Build.0 = Debug|Win32
-		{12ADFAFF-5487-4286-AB9F-657B4086B14E}.Release|Any CPU.ActiveCfg = Release|Win32
 		{12ADFAFF-5487-4286-AB9F-657B4086B14E}.Release|x64.ActiveCfg = Release|x64
 		{12ADFAFF-5487-4286-AB9F-657B4086B14E}.Release|x64.Build.0 = Release|x64
-		{12ADFAFF-5487-4286-AB9F-657B4086B14E}.Release|x86.ActiveCfg = Release|Win32
-		{12ADFAFF-5487-4286-AB9F-657B4086B14E}.Release|x86.Build.0 = Release|Win32
-		{1DA0EEDF-ADEA-4D92-BC4D-3B1C2BF16F0B}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{1DA0EEDF-ADEA-4D92-BC4D-3B1C2BF16F0B}.Debug|x64.ActiveCfg = Debug|x64
 		{1DA0EEDF-ADEA-4D92-BC4D-3B1C2BF16F0B}.Debug|x64.Build.0 = Debug|x64
-		{1DA0EEDF-ADEA-4D92-BC4D-3B1C2BF16F0B}.Debug|x86.ActiveCfg = Debug|x86
-		{1DA0EEDF-ADEA-4D92-BC4D-3B1C2BF16F0B}.Debug|x86.Build.0 = Debug|x86
-		{1DA0EEDF-ADEA-4D92-BC4D-3B1C2BF16F0B}.Release|Any CPU.ActiveCfg = Release|x86
 		{1DA0EEDF-ADEA-4D92-BC4D-3B1C2BF16F0B}.Release|x64.ActiveCfg = Release|x64
 		{1DA0EEDF-ADEA-4D92-BC4D-3B1C2BF16F0B}.Release|x64.Build.0 = Release|x64
-		{1DA0EEDF-ADEA-4D92-BC4D-3B1C2BF16F0B}.Release|x86.ActiveCfg = Release|x86
-		{1DA0EEDF-ADEA-4D92-BC4D-3B1C2BF16F0B}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

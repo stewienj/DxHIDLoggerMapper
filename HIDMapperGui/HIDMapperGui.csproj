@@ -6,6 +6,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <NoWarn>MSB3277</NoWarn>
+    <StartupObject>HIDMapperGui.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\HIDMapper\HIDMapperDLL.vcxproj" />
